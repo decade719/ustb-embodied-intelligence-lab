@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>科研成果 - USTB 具身智能实验室</title>
+  <link rel="stylesheet" href="styles.css" />
+  
+  <!-- 图片加载优化脚本 -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 为所有图片添加懒加载
+      const images = document.querySelectorAll('img:not([loading])');
+      images.forEach(img => {
+        img.setAttribute('loading', 'lazy');
+        if (!img.style.backgroundColor) {
+          img.style.backgroundColor = '#f0f0f0';
+        }
+      });
+    });
+  </script>
+  
+  <style>
+    /* 全屏滚动样式 */
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+    }
+    
+    #fullpage-wrapper {
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(102,126,234,0.5) transparent;
+    }
+    
+    #fullpage-wrapper::-webkit-scrollbar {
+      width: 10px;
+    }
+    
+    #fullpage-wrapper::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    #fullpage-wrapper::-webkit-scrollbar-thumb {
+      background: rgba(102,126,234,0.5);
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    
+    #fullpage-wrapper::-webkit-scrollbar-thumb:hover {
+      background: rgba(102,126,234,0.7);
+    }
+    
+    .fp-section {
+      height: 100vh;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .fp-section .container {
+      width: 100%;
+      max-width: 1400px;
+      padding: 140px 20px 80px;
+      margin: 0 auto;
+    }
+    
+    /* 导航点样式 */
+    .fp-nav {
+      position: fixed;
+      right: 50px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 9999;
+    }
+    
+    .fp-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .fp-nav li {
+      position: relative;
+    }
+    
+    .fp-nav a {
+      display: block;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      border: 2px solid rgba(102,126,234,0.8);
+      transition: all 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .fp-nav a:hover,
+    .fp-nav a.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      transform: scale(1.4);
+      box-shadow: 0 0 20px rgba(102,126,234,0.6);
+    }
+    
+    .fp-nav .fp-tooltip {
+      position: absolute;
+      right: 32px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.85);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s;
+    }
+    
+    .fp-nav li:hover .fp-tooltip {
+      opacity: 1;
+      transform: translateY(-50%) translateX(-8px);
+    }
+    
+    @media (max-width: 768px) {
+      .fp-nav {
+        right: 15px;
+      }
+      
+      .fp-nav a {
+        width: 10px;
+        height: 10px;
+      }
+      
+      .fp-section .container {
+        padding: 40px 15px;
+      }
+    }
+    
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9) translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* 局部排版增强（仅影响本页面） */
+    #fullpage-wrapper h1 { font-size: 48px !important; line-height: 1.25 !important; }
+    #fullpage-wrapper h2 { font-size: 34px !important; line-height: 1.4 !important; }
+    #fullpage-wrapper h3 { font-size: 16px !important; }
+    #fullpage-wrapper h4 { font-size: 16px !important; }
+    #fullpage-wrapper p  { font-size: 18px !important; line-height: 1.9 !important; }
+    #fullpage-wrapper .fp-tooltip { font-size: 14px !important; }
+  </style>
+</head>
+<body class="theme-huaqin cases-page">
+  <header class="site-header theme-huaqin" style="position: fixed; top: 0; left: 0; right: 0; z-index: 10000;">
+    <div class="container">
+      <a class="logo" href="index.html" data-i18n="nav.brand">北京科技大学具身智能实验室</a>
+      <nav class="nav" id="mainNav">
+        <button class="nav-toggle" aria-label="toggle menu" onclick="document.getElementById('mainNav').dataset.open = document.getElementById('mainNav').dataset.open === 'true' ? 'false' : 'true'">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-list">
+          <li><a href="index.html" data-i18n="nav.home">首页</a></li>
+          <li><a href="cases.html" data-i18n="cases_title">科研成果</a></li>
+          <li><a href="members.html" data-i18n="members_title">成员介绍</a></li>
+          <li><a href="partners.html" data-i18n="partners_title">合作伙伴</a></li>
+          <li><a href="contact.html" data-i18n="nav.contact">联系方式</a></li>
+        </ul>
+        <div class="tools">
+          <select id="langSwitcher" aria-label="language">
+            <option value="zh-CN">简体中文</option>
+            <option value="zh-HK">繁体中文</option>
+            <option value="en-us">English</option>
+          </select>
+          <button id="themeToggle" data-i18n="theme_toggle">🌙</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 全屏滚动容器 -->
+  <div id="fullpage-wrapper">
+    
+    <!-- Hero区 -->
+    <section class="fp-section" data-anchor="hero" style="background: var(--gradient);">
+      <div class="container" style="text-align: center; padding: 140px 20px 80px;">
+        <h1 class="reveal" style="font-size: 36px; margin-bottom: 12px; color: white;">🏆 科研成果展示</h1>
+        <p class="reveal" style="--d:.1s; font-size: 18px; color: rgba(255,255,255,0.95); max-width: 800px; margin: 0 auto;">精选项目落地与研究成果展示，体现技术可靠性与应用价值</p>
+      </div>
+    </section>
+
+    <!-- 科研成果1：基于视觉的粗糙度在线智能检测系统 -->
+    <section id="case1" class="fp-section" data-anchor="case1" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);">
+      <div class="container" style="padding: 80px 20px 60px; max-width: 1600px;">
+        <!-- 顶部标题 -->
+        <div style="text-align: center; margin-bottom: 8px;">
+          <div style="display: inline-block; background: var(--gradient); color: white; padding: 4px 16px; border-radius: 20px; font-size: 16px; font-weight: 700; margin-bottom: 4px;">
+            科研成果 1
+          </div>
+          <h2 class="reveal" style="font-size: 26px; color: #1e40af; margin-bottom: 4px; font-weight: 700;">基于视觉的粗糙度在线智能检测系统</h2>
+          <p class="reveal" style="--d:.05s; font-size: 16px; color: #60a5fa; max-width: 800px; margin: 0 auto; line-height: 1.4;">
+            纳米级粗糙度原位在线智能检测，实现工业生产中表面质量的实时监控与精准测量
+          </p>
+        </div>
+        
+        <!-- 主体内容：三图水平布局 -->
+        <div style="max-width: 1400px; margin: 0 auto 20px;">
+          <!-- 三张图片水平排列 -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 20px;">
+            <!-- 检测系统 -->
+            <div class="reveal" style="text-align: center;">
+              <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(59,130,246,0.2); cursor: pointer;" onclick="openImageModal('pictures/1.png', '检测系统')">
+                <img src="pictures/1.png" alt="粗糙度检测系统设备" loading="lazy" style="width: 100%; height: 220px; object-fit: cover; transition: transform 0.3s; background: #f0f0f0;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+              </div>
+              <p style="text-align: center; color: #60a5fa; margin-top: 8px; font-size: 16px; font-weight: 600;">检测系统</p>
+            </div>
+            
+            <!-- 网络架构 -->
+            <div class="reveal" style="--d:.1s; text-align: center;">
+              <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(59,130,246,0.2); background: white; padding: 10px; cursor: pointer;" onclick="openImageModal('pictures/3.png', '网络架构')">
+                <img src="pictures/3.png" alt="FE-Trans-Net架构" loading="lazy" style="width: 100%; height: 200px; object-fit: contain; transition: transform 0.3s; background: #f0f0f0;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+              </div>
+              <p style="text-align: center; color: #60a5fa; margin-top: 8px; font-size: 16px; font-weight: 600;">网络架构</p>
+            </div>
+
+            <!-- 特征融合 -->
+            <div class="reveal" style="--d:.15s; text-align: center;">
+              <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(59,130,246,0.2); cursor: pointer;" onclick="openImageModal('pictures/2.png', '特征融合')">
+                <img src="pictures/2.png" alt="粗糙度特征融合" loading="lazy" style="width: 100%; height: 220px; object-fit: cover; transition: transform 0.3s; background: #f0f0f0;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+              </div>
+              <p style="text-align: center; color: #60a5fa; margin-top: 8px; font-size: 16px; font-weight: 600;">特征融合</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 系统优势 -->
+        <div class="reveal" style="background: white; padding: 10px; border-radius: 16px; box-shadow: 0 8px 30px rgba(59,130,246,0.12); max-width: 1400px; margin: 0 auto 0 auto;">
+          <h3 style="font-size: 22px; color: #1e40af; margin-bottom: 6px; text-align: center; font-weight: 700;">系统优势</h3>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+            <div style="text-align: center; padding: 10px; background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border-radius: 12px;">
+              <div style="font-size: 24px; margin-bottom: 4px;">🔬</div>
+              <h4 style="color: #1e40af; font-size: 16px; margin-bottom: 2px; font-weight: 700;">纳米级精度</h4>
+              <p style="color: #3b82f6; font-size: 15px; margin: 0;">纳米级高精度测量</p>
+            </div>
+            <div style="text-align: center; padding: 10px; background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border-radius: 12px;">
+              <div style="font-size: 24px; margin-bottom: 4px;">⚡</div>
+              <h4 style="color: #1e40af; font-size: 16px; margin-bottom: 2px; font-weight: 700;">在线实时检测</h4>
+              <p style="color: #3b82f6; font-size: 15px; margin: 0;">快速实时检测</p>
+            </div>
+            <div style="text-align: center; padding: 10px; background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border-radius: 12px;">
+              <div style="font-size: 24px; margin-bottom: 4px;">🧠</div>
+              <h4 style="color: #1e40af; font-size: 16px; margin-bottom: 2px; font-weight: 700;">AI智能分析</h4>
+              <p style="color: #3b82f6; font-size: 15px; margin: 0;">高准确率</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 科研成果2：基于视觉的缺陷智能检测 -->
+    <section id="case2" class="fp-section" data-anchor="case2" style="background: white;">
+      <div class="container" style="padding: 160px 20px 120px;">
+        <div style="text-align: center; margin-bottom: 20px;">
+          <div style="display: inline-block; background: var(--gradient); color: white; padding: 8px 24px; border-radius: 24px; font-size: 18px; font-weight: 700; margin-bottom: 10px;">
+            科研成果 2
+          </div>
+          <h2 class="reveal" style="font-size: 36px; color: #7c3aed; margin-bottom: 10px;">基于视觉的缺陷智能检测</h2>
+          <p class="reveal" style="--d:.05s; font-size: 18px; color: #a78bfa; max-width: 900px; margin: 0 auto; line-height: 1.5;">
+            多通道、多尺度、多特征融合的AI模型，实现复杂工业场景下的高精度缺陷检测
+          </p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; align-items: center; margin-bottom: 20px; max-width: 1200px; margin-left: auto; margin-right: auto;">
+          <div class="reveal" style="cursor: pointer;" onclick="openImageModal('pictures/5.png', 'AI模型')">
+            <img src="pictures/5.png" alt="缺陷检测AI架构" loading="lazy" style="width: 100%; max-width: 350px; display: block; margin: 0 auto; border-radius: 16px; box-shadow: 0 15px 40px rgba(124,58,237,0.25); transition: transform 0.3s; background: #f0f0f0;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            <p style="text-align: center; color: #a78bfa; margin-top: 6px; font-size: 18px;">AI模型</p>
+          </div>
+          <div class="reveal" style="--d:.1s; cursor: pointer;" onclick="openImageModal('pictures/6.png', '检测结果1')">
+            <img src="pictures/6.png" alt="缺陷检测结果1" loading="lazy" style="width: 100%; max-width: 350px; display: block; margin: 0 auto; border-radius: 16px; box-shadow: 0 15px 40px rgba(124,58,237,0.25); transition: transform 0.3s; background: #f0f0f0;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            <p style="text-align: center; color: #a78bfa; margin-top: 6px; font-size: 18px;">检测结果1</p>
+          </div>
+          <div class="reveal" style="--d:.15s; cursor: pointer;" onclick="openImageModal('pictures/7.png', '检测结果2')">
+            <img src="pictures/7.png" alt="缺陷检测结果2" loading="lazy" style="width: 100%; max-width: 350px; display: block; margin: 0 auto; border-radius: 16px; box-shadow: 0 15px 40px rgba(124,58,237,0.25); transition: transform 0.3s; background: #f0f0f0;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            <p style="text-align: center; color: #a78bfa; margin-top: 6px; font-size: 18px;">检测结果2</p>
+          </div>
+        </div>
+        
+        <div class="reveal" style="background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%); padding: 18px; border-radius: 20px; max-width: 1200px; margin: 0 auto;">
+          <h3 style="font-size: 18px; color: #7c3aed; margin-bottom: 14px; text-align: center; font-weight: 700;">技术亮点</h3>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;">
+            <div style="display: flex; gap: 14px; padding: 14px; background: white; border-radius: 12px; box-shadow: 0 4px 16px rgba(124,58,237,0.1);">
+              <span style="font-size: 28px;">🔍</span>
+              <div>
+                <h4 style="color: #7c3aed; font-size: 18px; margin-bottom: 2px; font-weight: 700;">多通道融合</h4>
+                <p style="color: #a78bfa; margin: 0; line-height: 1.4; font-size: 18px;">整合多种传感器数据，全面捕获缺陷特征</p>
+              </div>
+            </div>
+            <div style="display: flex; gap: 14px; padding: 14px; background: white; border-radius: 12px; box-shadow: 0 4px 16px rgba(124,58,237,0.1);">
+              <span style="font-size: 28px;">📏</span>
+              <div>
+                <h4 style="color: #7c3aed; font-size: 18px; margin-bottom: 2px; font-weight: 700;">多尺度检测</h4>
+                <p style="color: #a78bfa; margin: 0; line-height: 1.4; font-size: 18px;">从微小划痕到大面积缺陷，全尺度覆盖</p>
+              </div>
+            </div>
+            <div style="display: flex; gap: 14px; padding: 14px; background: white; border-radius: 12px; box-shadow: 0 4px 16px rgba(124,58,237,0.1);">
+              <span style="font-size: 28px;">🧩</span>
+              <div>
+                <h4 style="color: #7c3aed; font-size: 18px; margin-bottom: 2px; font-weight: 700;">多特征融合</h4>
+                <p style="color: #a78bfa; margin: 0; line-height: 1.4; font-size: 18px;">融合全局与局部特征，提升准确性</p>
+              </div>
+            </div>
+            <div style="display: flex; gap: 14px; padding: 14px; background: white; border-radius: 12px; box-shadow: 0 4px 16px rgba(124,58,237,0.1);">
+              <span style="font-size: 28px;">⚡</span>
+              <div>
+                <h4 style="color: #7c3aed; font-size: 18px; margin-bottom: 2px; font-weight: 700;">高效实时</h4>
+                <p style="color: #a78bfa; margin: 0; line-height: 1.4; font-size: 18px;">快速检测，高准确率</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 科研成果3：基于机器视觉的分拣系统 -->
+    <section id="case3" class="fp-section" data-anchor="case3" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);">
+      <div class="container" style="padding: 80px 20px 40px;">
+        <div style="text-align: center; margin-bottom: 20px;">
+          <div style="display: inline-block; background: var(--gradient); color: white; padding: 6px 20px; border-radius: 20px; font-size: 16px; font-weight: 700; margin-bottom: 12px;">
+            科研成果 3
+          </div>
+          <h2 class="reveal" style="font-size: 30px; color: #065f46; margin-bottom: 10px;">基于机器视觉的分拣系统</h2>
+          <p class="reveal" style="--d:.05s; font-size: 16px; color: #059669; max-width: 900px; margin: 0 auto; line-height: 1.6;">
+            基于深度学习的目标检测算法与混合特征提取网络（HFE-Net），实现高效精准的自动化分拣
+          </p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; margin-bottom: 20px; max-width: 1000px; margin-left: auto; margin-right: auto;">
+          <div class="reveal" style="cursor: pointer;" onclick="openImageModal('pictures/8.png', '分拣系统')">
+            <img src="pictures/8.png" alt="智能分拣系统设备" style="width: 60%; max-width: 270px; display: block; margin: 0 auto; border-radius: 16px; box-shadow: 0 15px 40px rgba(5,150,105,0.25); transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            <p style="text-align: center; color: #059669; margin-top: 8px; font-size: 16px;">分拣系统</p>
+          </div>
+          <div class="reveal" style="--d:.1s; cursor: pointer;" onclick="openImageModal('pictures/9.png', '检测算法')">
+            <img src="pictures/9.png" alt="HFE-Net架构" style="width: 100%; max-width: 450px; display: block; margin: 0 auto; border-radius: 16px; box-shadow: 0 15px 40px rgba(5,150,105,0.25); transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            <p style="text-align: center; color: #059669; margin-top: 8px; font-size: 16px;">检测算法</p>
+          </div>
+        </div>
+        
+        <div class="reveal" style="background: white; padding: 20px; border-radius: 16px; box-shadow: 0 10px 40px rgba(5,150,105,0.15); max-width: 1000px; margin: 0 auto;">
+          <h3 style="font-size: 16px; color: #065f46; margin-bottom: 16px; text-align: center; font-weight: 700;">应用优势</h3>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+            <div style="text-align: center; padding: 14px; background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-radius: 12px;">
+              <div style="font-size: 24px; margin-bottom: 6px;">⚡</div>
+              <h4 style="color: #065f46; font-size: 15px; margin-bottom: 4px; font-weight: 700;">高速高效</h4>
+              <p style="color: #047857; font-size: 15px; margin: 0;">高帧率处理</p>
+            </div>
+            <div style="text-align: center; padding: 14px; background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-radius: 12px;">
+              <div style="font-size: 24px; margin-bottom: 6px;">🎯</div>
+              <h4 style="color: #065f46; font-size: 15px; margin-bottom: 4px; font-weight: 700;">精准识别</h4>
+              <p style="color: #047857; font-size: 15px; margin: 0;">高准确率</p>
+            </div>
+            <div style="text-align: center; padding: 14px; background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-radius: 12px;">
+              <div style="font-size: 24px; margin-bottom: 6px;">🔧</div>
+              <h4 style="color: #065f46; font-size: 15px; margin-bottom: 4px; font-weight: 700;">灵活适配</h4>
+              <p style="color: #047857; font-size: 15px; margin: 0;">多目标类型</p>
+            </div>
+            <div style="text-align: center; padding: 14px; background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-radius: 12px;">
+              <div style="font-size: 24px; margin-bottom: 6px;">💰</div>
+              <h4 style="color: #065f46; font-size: 15px; margin-bottom: 4px; font-weight: 700;">降本增效</h4>
+              <p style="color: #047857; font-size: 15px; margin: 0;">ROI周期短</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 科研成果4：具身智能 - 智能导航轮椅 -->
+    <section id="case4" class="fp-section" data-anchor="case4" style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);">
+      <div class="container" style="padding: 140px 20px 80px;">
+        <div style="text-align: center; margin-bottom: 30px;">
+          <div style="display: inline-block; background: var(--gradient); color: white; padding: 8px 24px; border-radius: 24px; font-size: 18px; font-weight: 700; margin-bottom: 20px;">
+            科研成果 4
+          </div>
+          <h2 class="reveal" style="font-size: 36px; color: #1e40af; margin-bottom: 16px;">具身智能 - 智能导航轮椅</h2>
+          <p class="reveal" style="--d:.05s; font-size: 18px; color: #60a5fa; max-width: 900px; margin: 0 auto; line-height: 1.8;">
+            融合视觉深度学习、智能导航、语音交互等前沿技术，为行动不便人士提供安全、智能、有温度的出行解决方案
+          </p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center; max-width: 1200px; margin: 0 auto;">
+          <div class="reveal" style="cursor: pointer;" onclick="openImageModal('pictures/10.png', '智能导航轮椅实景')">
+            <img src="pictures/10.png" alt="智能导航轮椅实景" style="width: 100%; max-width: 600px; display: block; margin: 0 auto; border-radius: 20px; box-shadow: 0 20px 60px rgba(59,130,246,0.3); transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+          </div>
+          <div class="reveal" style="--d:.1s; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(59,130,246,0.15);">
+            <h3 style="font-size: 22px; color: #1e40af; margin-bottom: 20px; font-weight: 700; text-align: center;">核心技术</h3>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              <li style="padding: 16px; margin-bottom: 12px; background: #dbeafe; border-radius: 12px; border-left: 4px solid #3b82f6; color: #1e40af; font-size: 16px; line-height: 1.6;">
+                基于视觉深度学习的目标检测算法
+              </li>
+              <li style="padding: 16px; margin-bottom: 12px; background: #dbeafe; border-radius: 12px; border-left: 4px solid #3b82f6; color: #1e40af; font-size: 16px; line-height: 1.6;">
+                基于视觉深度学习的道路分割算法
+              </li>
+              <li style="padding: 16px; margin-bottom: 12px; background: #dbeafe; border-radius: 12px; border-left: 4px solid #3b82f6; color: #1e40af; font-size: 16px; line-height: 1.6;">
+                基于视觉智能检测的自动避障
+              </li>
+              <li style="padding: 16px; margin-bottom: 12px; background: #dbeafe; border-radius: 12px; border-left: 4px solid #3b82f6; color: #1e40af; font-size: 16px; line-height: 1.6;">
+                基于智能视觉算法的自动跟随
+              </li>
+              <li style="padding: 16px; margin-bottom: 12px; background: #dbeafe; border-radius: 12px; border-left: 4px solid #3b82f6; color: #1e40af; font-size: 16px; line-height: 1.6;">
+                基于GPS和SLAM的室内外自主导航
+              </li>
+              <li style="padding: 16px; margin-bottom: 12px; background: #dbeafe; border-radius: 12px; border-left: 4px solid #3b82f6; color: #1e40af; font-size: 16px; line-height: 1.6;">
+                语音驱动的电机运行
+              </li>
+              <li style="padding: 16px; margin-bottom: 0; background: #dbeafe; border-radius: 12px; border-left: 4px solid #3b82f6; color: #1e40af; font-size: 16px; line-height: 1.6;">
+                基于大模型的语音智能交互、聊天陪伴
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 科研成果5：磨粒智能检测 -->
+    <section id="case5" class="fp-section" data-anchor="case5" style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);">
+      <div class="container" style="padding: 140px 20px 80px;">
+        <div style="text-align: center; margin-bottom: 40px;">
+          <div style="display: inline-block; background: var(--gradient); color: white; padding: 8px 24px; border-radius: 24px; font-size: 18px; font-weight: 700; margin-bottom: 20px;">
+            科研成果 5
+          </div>
+          <h2 class="reveal" style="font-size: 36px; color: #92400e; margin-bottom: 16px;">航空发动机油液磨粒智能检测与分析仪</h2>
+          <p class="reveal" style="--d:.05s; font-size: 18px; color: #b45309; max-width: 900px; margin: 0 auto; line-height: 1.8;">
+            基于视觉的磨粒智能检测，实现油液磨粒的自动识别与分析，保障航空发动机安全运行
+          </p>
+        </div>
+        
+        <div style="max-width: 500px; margin: 0 auto;">
+          <!-- 图片区：底部对齐 -->
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; align-items: end;">
+            <div class="reveal" style="cursor: pointer;" onclick="openImageModal('pictures/磨粒1.png', '检测仪设备')">
+              <img src="pictures/磨粒1.png" alt="磨粒检测仪设备" loading="lazy" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 24px rgba(245,158,11,0.2); transition: transform 0.3s; background: #f0f0f0;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+              <p style="text-align: center; color: #b45309; margin-top: 8px; font-size: 16px;">检测仪设备</p>
+            </div>
+            <div class="reveal" style="--d:.1s; cursor: pointer;" onclick="openImageModal('pictures/磨粒2.png', '分析软件界面')">
+              <img src="pictures/磨粒2.png" alt="磨粒检测软件界面" loading="lazy" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 24px rgba(245,158,11,0.2); transition: transform 0.3s; background: #f0f0f0;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+              <p style="text-align: center; color: #b45309; margin-top: 8px; font-size: 16px;">分析软件界面</p>
+            </div>
+            <div class="reveal" style="--d:.15s; cursor: pointer;" onclick="openImageModal('pictures/磨粒3.png', '算法架构')">
+              <img src="pictures/磨粒3.png" alt="检测算法架构" loading="lazy" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 24px rgba(245,158,11,0.2); transition: transform 0.3s; background: #f0f0f0;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+              <p style="text-align: center; color: #b45309; margin-top: 8px; font-size: 16px;">算法架构</p>
+            </div>
+            <div class="reveal" style="--d:.2s; cursor: pointer;" onclick="openImageModal('pictures/磨粒5.png', '统计分析结果')">
+              <img src="pictures/磨粒5.png" alt="磨粒分析结果" loading="lazy" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 24px rgba(245,158,11,0.2); transition: transform 0.3s; background: #f0f0f0;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+              <p style="text-align: center; color: #b45309; margin-top: 8px; font-size: 16px;">统计分析结果</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 科研成果6：定制轮式具身智能大脑 -->
+    <section id="case6" class="fp-section" data-anchor="case6" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);">
+      <div class="container" style="padding: 140px 20px 80px;">
+        <div style="text-align: center; margin-bottom: 30px;">
+          <div style="display: inline-block; background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); color: white; padding: 8px 24px; border-radius: 24px; font-size: 18px; font-weight: 700; margin-bottom: 20px;">
+            科研成果 6
+          </div>
+          <h2 class="reveal" style="font-size: 36px; color: #0369a1; margin-bottom: 16px;">定制---轮式具身智能大脑</h2>
+          <p class="reveal" style="--d:.05s; font-size: 18px; color: #0ea5e9; max-width: 900px; margin: 0 auto; line-height: 1.8;">
+            自动驾驶轮式机器人-智能大脑定制，适配智能婴儿车、智能物流车
+          </p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center; max-width: 1200px; margin: 0 auto;">
+          <div class="reveal" style="cursor: pointer; background: white; padding: 20px; border-radius: 24px; box-shadow: 0 20px 60px rgba(14,165,233,0.15);" onclick="openImageModal('pictures/轮式具身智能大脑.png', '轮式具身智能大脑')">
+            <img src="pictures/轮式具身智能大脑.png" alt="轮式具身智能大脑" style="width: 100%; max-width: 600px; display: block; margin: 0 auto; border-radius: 12px; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+          </div>
+          <div class="reveal" style="--d:.1s; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(14,165,233,0.15);">
+            <h3 style="font-size: 22px; color: #0369a1; margin-bottom: 20px; font-weight: 700; text-align: center;">核心功能</h3>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              <li style="padding: 16px; margin-bottom: 12px; background: #e0f2fe; border-radius: 12px; border-left: 4px solid #0ea5e9; color: #0369a1; font-size: 16px; line-height: 1.6;">
+                基于视觉智能检测的自动避障
+              </li>
+              <li style="padding: 16px; margin-bottom: 12px; background: #e0f2fe; border-radius: 12px; border-left: 4px solid #0ea5e9; color: #0369a1; font-size: 16px; line-height: 1.6;">
+                基于智能视觉算法的自动跟随
+              </li>
+              <li style="padding: 16px; margin-bottom: 12px; background: #e0f2fe; border-radius: 12px; border-left: 4px solid #0ea5e9; color: #0369a1; font-size: 16px; line-height: 1.6;">
+                基于GPS和SLAM的室内外自主导航
+              </li>
+              <li style="padding: 16px; margin-bottom: 12px; background: #e0f2fe; border-radius: 12px; border-left: 4px solid #0ea5e9; color: #0369a1; font-size: 16px; line-height: 1.6;">
+                基于大模型的语音智能交互、陪伴
+              </li>
+              <li style="padding: 16px; margin-bottom: 0; background: #e0f2fe; border-radius: 12px; border-left: 4px solid #0ea5e9; color: #0369a1; font-size: 16px; line-height: 1.6;">
+                状态监测、行为分析
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 专利成果展示 - 简化版 -->
+    <section id="patents" class="fp-section" data-anchor="patents" style="background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);">
+      <div class="container" style="padding: 140px 20px 80px;">
+        <div style="text-align: center; margin-bottom: 40px;">
+          <div style="display: inline-block; background: var(--gradient); color: white; padding: 8px 24px; border-radius: 24px; font-size: 18px; font-weight: 700; margin-bottom: 20px;">
+            📜 知识产权
+          </div>
+          <h2 class="reveal" style="font-size: 36px; color: #7e22ce; margin-bottom: 16px;">已授权部分专利</h2>
+          <p class="reveal" style="--d:.05s; font-size: 18px; color: #a855f7; max-width: 900px; margin: 0 auto; line-height: 1.8;">
+            持续创新，技术积累深厚，已获得多项国家发明专利授权
+          </p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 1200px; margin: 0 auto 30px;">
+          <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 8px 30px rgba(168,85,247,0.12);">
+            <h3 style="font-size: 24px; color: #dc2626; margin-bottom: 20px; text-align: center; font-weight: 800;">已授权部分专利</h3>
+            <div style="background: #faf5ff; padding: 24px; border-radius: 12px; border-left: 4px solid #a855f7; max-height: 600px; overflow-y: auto;">
+              <ol style="margin: 0; padding-left: 20px; color: #7e22ce; font-size: 16px; line-height: 2.2;">
+                <li style="margin-bottom: 10px;">一种可以识别新类的磨粒分类模型与方法：202010526027.X</li>
+                <li style="margin-bottom: 10px;">一种基于强度相图的聚合物降解强度的计算方法和装置：201910525798.4</li>
+                <li style="margin-bottom: 10px;">一种基于特征融合的图像分类方法：ZL202011140530.8</li>
+                <li style="margin-bottom: 10px;">一种基于语义分割的磨粒图像分类方法及装置：ZL202110428069.4</li>
+                <li style="margin-bottom: 10px;">一种图神经网络的数据-机理驱动的材料属性预测方法：ZL202210483568.8</li>
+                <li style="margin-bottom: 10px;">一种基于机器视觉的铜表面氧化检测及氧化程度判断方法：ZL202111265836.0</li>
+                <li style="margin-bottom: 10px;">基于注意力机制及多尺寸信息提取的双图像识别分类方法：ZL202210066369.7</li>
+                <li style="margin-bottom: 10px;">一种目标特征注意力与金字塔相耦合的微小目标检测方法：ZL202210483555.0</li>
+                <li style="margin-bottom: 10px;">一种基于质谱图和图结构的分子属性预测方法：ZL202210483589.X</li>
+                <li style="margin-bottom: 10px;">一种基于Lightweight CNN与SVM的磨粒两阶段识别方法：ZL201911235914.5</li>
+                <li style="margin-bottom: 0;">一种基于白光干涉图像的表面粗糙度检测方法：ZL202411848841.8</li>
+              </ol>
+            </div>
+          </div>
+
+          <div style="background: white; padding: 24px; border-radius: 16px; box-shadow: 0 8px 30px rgba(168,85,247,0.12); display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; align-content: start;">
+            <img src="pictures/11.png" alt="专利证书" style="width: 100%; border-radius: 8px;">
+            <img src="pictures/12.png" alt="专利证书" style="width: 100%; border-radius: 8px;">
+            <img src="pictures/13.png" alt="专利证书" style="width: 100%; border-radius: 8px;">
+            <img src="pictures/14.png" alt="专利证书" style="width: 100%; border-radius: 8px;">
+            <img src="pictures/15.png" alt="专利证书" style="width: 100%; border-radius: 8px;">
+            <img src="pictures/16.png" alt="专利证书" style="width: 100%; border-radius: 8px;">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 联系咨询 -->
+    <section class="fp-section" data-anchor="contact" style="background: var(--gradient);">
+      <div class="container" style="text-align: center; padding: 140px 20px 80px;">
+        <h2 class="reveal" style="font-size: 36px; color: white; margin-bottom: 20px;">对我们的成果感兴趣？</h2>
+        <p class="reveal" style="--d:.05s; font-size: 18px; color: rgba(255,255,255,0.95); margin-bottom: 40px;">欢迎与我们联系，探讨合作机会</p>
+        <a href="contact.html" class="reveal" style="--d:.1s; display: inline-block; background: white; color: var(--primary); padding: 16px 40px; border-radius: 50px; font-size: 18px; font-weight: 700; text-decoration: none; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: all 0.3s;">
+          联系我们 →
+        </a>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- 右侧导航点 -->
+  <nav class="fp-nav" role="navigation" aria-label="页面导航">
+    <ul id="fp-nav-list"></ul>
+  </nav>
+
+  <!-- 自定义模态框 -->
+  <div id="customModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 10000; backdrop-filter: blur(8px); align-items: center; justify-content: center;">
+    <div style="background: white; border-radius: 24px; padding: 48px 40px; max-width: 500px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.3); position: relative; animation: modalFadeIn 0.3s ease;">
+      <div style="text-align: center; margin-bottom: 24px;">
+        <div style="font-size: 72px; margin-bottom: 16px;">🚧</div>
+        <h2 id="modalTitle" style="font-size: 28px; font-weight: 800; color: #1f2937; margin-bottom: 12px;">产品开发中</h2>
+        <p id="modalMessage" style="font-size: 16px; line-height: 1.8; color: #6b7280; margin: 0;"></p>
+      </div>
+      <button onclick="closeModal()" style="width: 100%; background: var(--gradient); color: white; border: none; padding: 16px; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 16px rgba(102,126,234,0.4);">
+        知道了
+      </button>
+    </div>
+  </div>
+
+  <!-- 图片查看器模态框 -->
+  <div id="imageModal" onclick="closeImageModal()" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 10001; align-items: center; justify-content: center; cursor: pointer;">
+    <div style="position: relative; max-width: 90vw; max-height: 90vh;">
+      <img id="modalImage" src="" alt="" style="max-width: 100%; max-height: 90vh; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
+      <div id="modalImageTitle" style="position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%); color: white; font-size: 18px; font-weight: 600; white-space: nowrap;"></div>
+      <button onclick="closeImageModal(); event.stopPropagation();" style="position: absolute; top: -40px; right: 0; background: rgba(255,255,255,0.2); border: 2px solid white; color: white; width: 40px; height: 40px; border-radius: 50%; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">×</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  
+  <script>
+    // 强制全屏滚动脚本
+    (function() {
+      const wrapper = document.getElementById('fullpage-wrapper');
+      const sections = document.querySelectorAll('.fp-section');
+      const navList = document.getElementById('fp-nav-list');
+      
+      let currentIndex = 0;
+      let isScrolling = false;
+      let touchStartY = 0;
+      
+      // Section names for navigation tooltips
+      const sectionNames = [
+        '成果展示',
+        '粗糙度检测',
+        '缺陷检测',
+        '分拣系统',
+        '智能轮椅',
+        '磨粒检测',
+        '具身智能大脑',
+        '专利成果',
+        '联系我们'
+      ];
+      
+      // Create navigation dots
+      sections.forEach((section, index) => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        const tooltip = document.createElement('span');
+        
+        tooltip.className = 'fp-tooltip';
+        tooltip.textContent = sectionNames[index] || `Section ${index + 1}`;
+        
+        a.href = '#';
+        a.onclick = (e) => {
+          e.preventDefault();
+          scrollToSection(index);
+        };
+        
+        li.appendChild(tooltip);
+        li.appendChild(a);
+        navList.appendChild(li);
+      });
+      
+      const navItems = navList.querySelectorAll('a');
+      
+      function scrollToSection(index) {
+        if (index < 0 || index >= sections.length || isScrolling) return;
+        
+        isScrolling = true;
+        currentIndex = index;
+        
+        sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        // Update navigation
+        navItems.forEach(item => item.classList.remove('active'));
+        navItems[index].classList.add('active');
+        
+        setTimeout(() => {
+          isScrolling = false;
+        }, 800);
+      }
+      
+      // Mouse wheel event
+      let wheelTimeout;
+      wrapper.addEventListener('wheel', (e) => {
+        if (isScrolling) {
+          e.preventDefault();
+          return;
+        }
+        
+        clearTimeout(wheelTimeout);
+        wheelTimeout = setTimeout(() => {
+          if (e.deltaY > 30) {
+            if (currentIndex < sections.length - 1) {
+              scrollToSection(currentIndex + 1);
+            }
+          } else if (e.deltaY < -30) {
+            if (currentIndex > 0) {
+              scrollToSection(currentIndex - 1);
+            }
+          }
+        }, 50);
+      }, { passive: false });
+      
+      // Touch events
+      wrapper.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+      
+      wrapper.addEventListener('touchend', (e) => {
+        if (isScrolling) return;
+        
+        const touchEndY = e.changedTouches[0].clientY;
+        const diff = touchStartY - touchEndY;
+        
+        if (Math.abs(diff) > 50) {
+          if (diff > 0 && currentIndex < sections.length - 1) {
+            scrollToSection(currentIndex + 1);
+          } else if (diff < 0 && currentIndex > 0) {
+            scrollToSection(currentIndex - 1);
+          }
+        }
+      }, { passive: true });
+      
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (isScrolling) return;
+        
+        switch(e.key) {
+          case 'ArrowDown':
+          case 'PageDown':
+            e.preventDefault();
+            if (currentIndex < sections.length - 1) {
+              scrollToSection(currentIndex + 1);
+            }
+            break;
+          case 'ArrowUp':
+          case 'PageUp':
+            e.preventDefault();
+            if (currentIndex > 0) {
+              scrollToSection(currentIndex - 1);
+            }
+            break;
+          case 'Home':
+            e.preventDefault();
+            scrollToSection(0);
+            break;
+          case 'End':
+            e.preventDefault();
+            scrollToSection(sections.length - 1);
+            break;
+        }
+      });
+      
+      // Update active dot on manual scroll
+      let scrollTimeout;
+      wrapper.addEventListener('scroll', () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          if (!isScrolling) {
+            const scrollTop = wrapper.scrollTop;
+            const windowHeight = wrapper.clientHeight;
+            const newIndex = Math.round(scrollTop / windowHeight);
+            
+            if (newIndex !== currentIndex && newIndex >= 0 && newIndex < sections.length) {
+              currentIndex = newIndex;
+              navItems.forEach(item => item.classList.remove('active'));
+              navItems[currentIndex].classList.add('active');
+            }
+          }
+        }, 100);
+      }, { passive: true });
+      
+      // Initial active state
+      if (navItems.length > 0) {
+        navItems[0].classList.add('active');
+      }
+    })();
+  </script>
+
+  <script>
+    function showModal(title, message) {
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalMessage').textContent = message;
+      document.getElementById('customModal').style.display = 'flex';
+    }
+    
+    function closeModal() {
+      document.getElementById('customModal').style.display = 'none';
+    }
+    
+    // 图片查看器函数
+    function openImageModal(imageSrc, imageTitle) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      const modalImageTitle = document.getElementById('modalImageTitle');
+      
+      modalImage.src = imageSrc;
+      modalImage.alt = imageTitle;
+      modalImageTitle.textContent = imageTitle;
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeImageModal() {
+      document.getElementById('imageModal').style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+    
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal();
+        closeImageModal();
+      }
+    });
+    
+    document.getElementById('customModal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+  </script>
+</body>
+</html>

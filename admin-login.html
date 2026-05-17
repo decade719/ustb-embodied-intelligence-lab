@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>管理员登录 - USTB 具身智能实验室</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="theme-huaqin">
+  <div style="min-height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+    <!-- 背景装饰 -->
+    <div style="position: absolute; inset: 0; opacity: 0.1; background: url('data:image/svg+xml,<svg width=\"60\" height=\"60\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"30\" cy=\"30\" r=\"2\" fill=\"white\"/></svg>');"></div>
+    
+    <!-- 返回首页按钮 -->
+    <a href="index.html" style="position: absolute; top: 24px; left: 24px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); color: white; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 24px; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.3);" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+      ←
+    </a>
+
+    <!-- 登录框 -->
+    <div style="background: white; border-radius: 24px; padding: 48px 40px; width: 90%; max-width: 450px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); position: relative; z-index: 1; animation: slideUp 0.5s ease;">
+      <!-- Logo区域 -->
+      <div style="text-align: center; margin-bottom: 32px;">
+        <div style="width: 80px; height: 80px; background: var(--gradient); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 8px 24px rgba(102,126,234,0.3);">
+          <span style="font-size: 40px;">🔐</span>
+        </div>
+        <h1 style="font-size: 28px; color: #1f2937; margin-bottom: 8px; font-weight: 800;">管理员登录</h1>
+        <p style="color: #6b7280; font-size: 14px;">深维智能科技-北京科技大学</p>
+      </div>
+
+      <!-- 登录表单 -->
+      <form id="loginForm" onsubmit="handleLogin(event)" style="margin-bottom: 24px;">
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; color: #374151; font-weight: 600; margin-bottom: 8px; font-size: 14px;">
+            <span style="margin-right: 8px;">🔑</span>管理员密码
+          </label>
+          <input 
+            type="password" 
+            id="password" 
+            placeholder="请输入管理员密码"
+            required
+            style="width: 100%; padding: 14px 16px; border: 2px solid #e5e7eb; border-radius: 12px; font-size: 15px; transition: all 0.3s; outline: none;"
+            onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102,126,234,0.1)'"
+            onblur="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none'"
+          />
+        </div>
+
+        <button 
+          type="submit"
+          style="width: 100%; background: var(--gradient); color: white; padding: 16px; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 16px rgba(102,126,234,0.4);"
+          onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 24px rgba(102,126,234,0.5)'"
+          onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 16px rgba(102,126,234,0.4)'"
+        >
+          登录管理后台
+        </button>
+      </form>
+
+      <!-- 错误提示 -->
+      <div id="errorMessage" style="display: none; background: #fee2e2; color: #dc2626; padding: 12px 16px; border-radius: 8px; font-size: 14px; text-align: center; margin-top: 16px;">
+        <span style="margin-right: 8px;">⚠️</span>
+        <span id="errorText">密码错误，请重试</span>
+      </div>
+
+      <!-- 提示信息 -->
+      <div style="margin-top: 24px; padding: 16px; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 12px; border-left: 4px solid #3b82f6;">
+        <p style="color: #1e40af; font-size: 13px; line-height: 1.6; margin: 0;">
+          <strong>💡 提示：</strong>此页面仅供授权管理员使用。如需管理权限，请联系实验室负责人。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+
+  <script>
+    function handleLogin(event) {
+      event.preventDefault();
+      
+      const password = document.getElementById('password').value;
+      const errorMessage = document.getElementById('errorMessage');
+      
+      // 验证密码
+      if (password === '9999') {
+        // 保存登录状态
+        sessionStorage.setItem('adminAuthenticated', 'true');
+        sessionStorage.setItem('adminLoginTime', new Date().toISOString());
+        
+        // 显示成功消息
+        const form = document.getElementById('loginForm');
+        form.innerHTML = `
+          <div style="text-align: center; padding: 20px;">
+            <div style="font-size: 64px; margin-bottom: 16px;">✅</div>
+            <h3 style="color: #10b981; font-size: 20px; margin-bottom: 8px;">登录成功！</h3>
+            <p style="color: #6b7280; font-size: 14px;">正在跳转到管理后台...</p>
+          </div>
+        `;
+        
+        // 跳转到管理后台
+        setTimeout(() => {
+          window.location.href = 'admin-dashboard.html';
+        }, 1500);
+        
+      } else {
+        // 显示错误消息
+        errorMessage.style.display = 'block';
+        document.getElementById('password').value = '';
+        document.getElementById('password').style.borderColor = '#dc2626';
+        
+        // 3秒后隐藏错误消息
+        setTimeout(() => {
+          errorMessage.style.display = 'none';
+          document.getElementById('password').style.borderColor = '#e5e7eb';
+        }, 3000);
+      }
+    }
+  </script>
+</body>
+</html>
+
