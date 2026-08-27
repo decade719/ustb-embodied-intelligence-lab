@@ -75,11 +75,11 @@ function loadDynamicMembers() {
     // 更新教授/负责人部分（支持多位导师）
     const professorCard = document.querySelector('[data-anchor="professor"] .container .reveal');
     if (professorCard && leaders.length > 0) {
-      const container = professorCard.parentElement;
-      container.innerHTML =
-        '<div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;">' +
-        leaders.map(m => renderMemberCard(m, 'gold', m.title || '教授', m.role || '实验室负责人')).join('') +
-        '</div>';
+      const grid = professorCard.closest('.m-grid') || professorCard.parentElement;
+      if (grid.classList && grid.classList.contains('m-grid')) grid.className = 'm-grid cols-2';
+      grid.innerHTML = leaders
+        .map((m, i) => renderMemberCard(m, 'gold', m.title || '教授', m.role || '实验室负责人', i * 0.06))
+        .join('');
     }
 
     // 获取容器

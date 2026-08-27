@@ -2,505 +2,176 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="USTB具身智能实验室成员介绍：导师团队、博士研究员与硕士研究生团队。" />
   <title>成员介绍 - USTB 具身智能实验室</title>
   <link rel="stylesheet" href="styles.css" />
-  
-  <style>
-    /* 全屏滚动样式 */
-    html, body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      height: 100%;
-    }
-    
-    #fullpage-wrapper {
-      height: 100vh;
-      overflow-y: scroll;
-      scroll-snap-type: y mandatory;
-      scroll-behavior: smooth;
-    }
-    
-    .fp-section {
-      height: 100vh;
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
-      position: relative;
-      overflow-y: auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .fp-section .container {
-      width: 100%;
-      max-width: 1400px;
-      padding: 60px 20px;
-    }
-    
-    /* 导航点样式 */
-    .fp-nav {
-      position: fixed;
-      right: 30px;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 9999;
-    }
-    
-    .fp-nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    
-    .fp-nav li {
-      position: relative;
-    }
-    
-    .fp-nav a {
-      display: block;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.5);
-      border: 2px solid rgba(102,126,234,0.8);
-      transition: all 0.3s;
-      cursor: pointer;
-      position: relative;
-    }
-    
-    .fp-nav a:hover,
-    .fp-nav a.active {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      transform: scale(1.4);
-      box-shadow: 0 0 20px rgba(102,126,234,0.6);
-    }
-    
-    .fp-nav .fp-tooltip {
-      position: absolute;
-      right: 32px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0,0,0,0.85);
-      color: white;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.3s;
-    }
-    
-    .fp-nav li:hover .fp-tooltip {
-      opacity: 1;
-      transform: translateY(-50%) translateX(-8px);
-    }
-    
-    @media (max-width: 768px) {
-      .fp-nav {
-        right: 15px;
-      }
-      
-      .fp-nav a {
-        width: 10px;
-        height: 10px;
-      }
-      
-      .fp-section .container {
-        padding: 40px 15px;
-      }
-    }
-
-    /* 成员页兜底：让卡片默认可见，避免滚动动画未触发造成空白 */
-    .reveal { opacity: 1 !important; transform: none !important; }
-    .reveal-show { opacity: 1 !important; transform: none !important; }
-  </style>
 </head>
-<body class="theme-huaqin">
-  <header class="site-header theme-huaqin" style="position: fixed; top: 0; left: 0; right: 0; z-index: 10000;">
+<body class="theme-huaqin grain">
+
+  <!-- 全站氛围光斑 -->
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <header class="site-header theme-huaqin">
     <div class="container">
-      <a class="logo" href="index.html" data-i18n="nav.brand">深维智能科技-北京科技大学</a>
+      <a class="logo" href="index.html" data-i18n="nav.brand">USTB具身智能实验室</a>
       <nav class="nav" id="mainNav">
-        <button class="nav-toggle" aria-label="toggle menu" onclick="document.getElementById('mainNav').dataset.open = document.getElementById('mainNav').dataset.open === 'true' ? 'false' : 'true'">
+        <button class="nav-toggle" aria-label="打开菜单" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
         <ul class="nav-list">
           <li><a href="index.html" data-i18n="nav.home">首页</a></li>
           <li><a href="cases.html" data-i18n="cases_title">科研成果</a></li>
-          <li><a href="members.html" data-i18n="members_title">成员介绍</a></li>
+          <li><a href="members.html" class="active" data-i18n="members_title">成员介绍</a></li>
           <li><a href="partners.html" data-i18n="partners_title">合作伙伴</a></li>
           <li><a href="contact.html" data-i18n="nav.contact">联系方式</a></li>
         </ul>
         <div class="tools">
-          <select id="langSwitcher" aria-label="language">
+          <select id="langSwitcher" aria-label="语言切换">
             <option value="zh-CN">简体中文</option>
-            <option value="zh-HK">繁体中文</option>
-            <option value="en-us">English</option>
+            <option value="zh-HK">繁體中文</option>
+            <option value="en">English</option>
           </select>
-          <button id="themeToggle" data-i18n="theme_toggle">🌙</button>
+          <button id="themeToggle" data-i18n="toolbar.theme">深色</button>
         </div>
       </nav>
     </div>
   </header>
 
-  <!-- 全屏滚动容器 -->
-  <div id="fullpage-wrapper">
-    
-    <!-- Hero区 -->
-    <section class="fp-section" data-anchor="hero" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); position: relative; overflow: hidden;">
-      <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.1; background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 30px 30px;"></div>
-      <div class="container" style="position: relative; z-index: 1; text-align: center; padding: 140px 20px 60px;">
-        <h1 style="color: white; font-size: 48px; margin-bottom: 20px; font-weight: 800;">团队成员</h1>
-        <p style="color: rgba(255,255,255,0.9); font-size: 20px; max-width: 700px; margin: 0 auto 12px; line-height: 1.8;">汇聚视觉、导航、语音交互、云平台与硬件系统等领域的跨学科人才</p>
-        <p style="color: rgba(255,255,255,0.8); font-size: 18px; margin-bottom: 32px; font-weight: 600;">已培养研究生44人</p>
-        <div style="display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;">
-          <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 16px 32px; border-radius: 50px; border: 2px solid rgba(255,255,255,0.3);">
-            <span style="color: white; font-size: 16px; font-weight: 600;">👨‍🏫 教授 × 1</span>
-          </div>
-          <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 16px 32px; border-radius: 50px; border: 2px solid rgba(255,255,255,0.3);">
-            <span style="color: white; font-size: 16px; font-weight: 600;">👨‍🏫 副教授 × 1</span>
-          </div>
-          <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 16px 32px; border-radius: 50px; border: 2px solid rgba(255,255,255,0.3);">
-            <span style="color: white; font-size: 16px; font-weight: 600;">🎓 博士 × 2</span>
-          </div>
-          <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 16px 32px; border-radius: 50px; border: 2px solid rgba(255,255,255,0.3);">
-            <span style="color: white; font-size: 16px; font-weight: 600;">📚 硕士 × 5</span>
-          </div>
+  <main>
+    <!-- 页首 -->
+    <section class="page-hero">
+      <div class="decor decor-a"></div>
+      <div class="decor decor-b"></div>
+      <div class="container">
+        <div class="eyebrow">Team · 团队</div>
+        <h1>团队成员</h1>
+        <p class="lead">汇聚视觉、导航、语音交互、云平台与硬件系统等领域的跨学科人才</p>
+        <div class="stat-pills">
+          <div class="stat-pill"><b>×1</b><span>👨‍🏫 教授</span></div>
+          <div class="stat-pill"><b>×1</b><span>👨‍🏫 副教授</span></div>
+          <div class="stat-pill"><b>×2</b><span>🎓 博士</span></div>
+          <div class="stat-pill"><b>×5</b><span>📚 硕士</span></div>
+          <div class="stat-pill"><b>44</b><span>已培养研究生</span></div>
         </div>
       </div>
     </section>
 
-    <!-- 实验室负责人 - 教授 -->
-    <section class="fp-section" data-anchor="professor" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);">
-      <div class="container" style="padding: 150px 30px 60px;">
-        <div style="text-align: center; margin-bottom: 36px;">
-          <div style="display: inline-block; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; padding: 9px 27px; border-radius: 30px; font-size: 20px; font-weight: 700; margin-bottom: 18px; box-shadow: 0 6px 23px rgba(245,158,11,0.4);">
-            ⭐ 实验室负责人
-          </div>
-          <h2 style="font-size: 42px; color: #92400e; margin-bottom: 12px; font-weight: 800;">导师团队</h2>
-          <p style="color: #78350f; font-size: 21px;">Leading Our Research Vision</p>
+    <!-- 实验室负责人 · 导师团队 -->
+    <section class="section alt" data-anchor="professor">
+      <div class="container">
+        <div style="text-align:center;">
+          <span class="pill gold">⭐ 实验室负责人</span>
+          <h2 class="section-title" style="margin-top:16px;">导师团队</h2>
+          <p class="section-sub">Leading Our Research Vision</p>
         </div>
-        
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 36px; max-width: 1350px; margin: 0 auto; grid-auto-flow: row; grid-auto-rows: auto;">
-          <div class="reveal" onclick="window.location.href='member-profile.html?id=zhangtaohong'" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-radius: 30px; padding: 36px; box-shadow: 0 12px 42px rgba(245,158,11,0.15); border: 3px solid #f59e0b; transition: all 0.3s; position: relative; overflow: hidden; cursor: pointer;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 18px 54px rgba(245,158,11,0.22)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 12px 42px rgba(245,158,11,0.15)'">
-            <div style="position: absolute; top: -30px; right: -30px; width: 135px; height: 135px; background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); border-radius: 50%; opacity: 0.15;"></div>
-            <div style="position: relative; z-index: 1;">
-              <div style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; border: 5px solid #f59e0b; margin: 0 auto 21px; box-shadow: 0 9px 30px rgba(245,158,11,0.3);">
-                <img src="pictures/成员0.webp" alt="张桃红教授" style="width: 100%; height: 100%; object-fit: cover;">
-              </div>
-              <div style="text-align: center; margin-bottom: 18px;">
-                <div style="display: inline-block; background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); color: white; padding: 5px 18px; border-radius: 18px; font-size: 15px; font-weight: 700; margin-bottom: 12px;">
-                  教授 · Professor
-                </div>
-                <h3 style="font-size: 27px; color: #92400e; margin-bottom: 6px; font-weight: 700;">张桃红</h3>
-              </div>
-            </div>
-          </div>
+        <div class="m-grid cols-2" style="max-width:840px;margin-left:auto;margin-right:auto;">
+          <article class="m-card gold clickable reveal" onclick="window.location.href='member-profile.html?id=zhangtaohong'">
+            <span class="m-badge">教授 · Professor</span>
+            <div class="m-photo"><img src="pictures/成员0.webp" alt="张桃红教授" loading="lazy"></div>
+            <h3>张桃红</h3>
+            <p class="m-role">实验室负责人</p>
+          </article>
           <!-- 第二位导师（静态备份，避免管理员数据影响原始展示）-->
-          <div class="reveal" onclick="window.location.href='member-profile.html?id=xingbowen'" style="--d:.05s; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-radius: 30px; padding: 36px; box-shadow: 0 12px 42px rgba(245,158,11,0.15); border: 3px solid #f59e0b; transition: all 0.3s; position: relative; overflow: hidden; cursor: pointer;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 18px 54px rgba(245,158,11,0.22)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 12px 42px rgba(245,158,11,0.15)'">
-            <div style="position: absolute; top: -30px; right: -30px; width: 135px; height: 135px; background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); border-radius: 50%; opacity: 0.15;"></div>
-            <div style="position: relative; z-index: 1;">
-              <div style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; border: 5px solid #f59e0b; margin: 0 auto 21px; box-shadow: 0 9px 30px rgba(245,158,11,0.3);">
-                <img src="pictures/成员5.webp" alt="邢博文副教授" style="width: 100%; height: 100%; object-fit: cover;">
-              </div>
-              <div style="text-align: center; margin-bottom: 18px;">
-                <div style="display: inline-block; background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); color: white; padding: 5px 18px; border-radius: 18px; font-size: 15px; font-weight: 700; margin-bottom: 12px;">
-                  副教授 · Associate Professor
-                </div>
-                <h3 style="font-size: 27px; color: #92400e; margin-bottom: 6px; font-weight: 700;">邢博文</h3>
-              </div>
-            </div>
-          </div>
+          <article class="m-card gold clickable reveal" style="--d:.08s" onclick="window.location.href='member-profile.html?id=xingbowen'">
+            <span class="m-badge">副教授 · Associate Professor</span>
+            <div class="m-photo"><img src="pictures/成员5.webp" alt="邢博文副教授" loading="lazy"></div>
+            <h3>邢博文</h3>
+            <p class="m-role">核心研究成员</p>
+          </article>
         </div>
       </div>
     </section>
 
     <!-- 博士团队 -->
-    <section class="fp-section" id="doctoral-team-section" data-anchor="doctoral" style="background: white;">
-      <div class="container" style="padding: 150px 30px 60px;">
-        <div style="text-align: center; margin-bottom: 36px;">
-          <div style="display: inline-block; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 9px 27px; border-radius: 30px; font-size: 20px; font-weight: 700; margin-bottom: 18px; box-shadow: 0 6px 23px rgba(59,130,246,0.4);">
-            🎓 核心研究力量
-          </div>
-          <h2 style="font-size: 42px; color: #1e40af; margin-bottom: 12px; font-weight: 800;">博士研究员</h2>
-          <p style="color: #60a5fa; font-size: 21px;">Advanced Research Team</p>
+    <section class="section" id="doctoral-team-section" data-anchor="doctoral">
+      <div class="container">
+        <div style="text-align:center;">
+          <span class="pill blue">🎓 核心研究力量</span>
+          <h2 class="section-title" style="margin-top:16px;">博士研究员</h2>
+          <p class="section-sub">Advanced Research Team</p>
         </div>
-        
-        <div id="doctoral-team-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 36px; max-width: 1350px; margin: 0 auto; grid-auto-flow: row; grid-auto-rows: auto;">
-          <!-- 俞纯林 -->
-          <div class="reveal" style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-radius: 30px; padding: 36px; box-shadow: 0 12px 42px rgba(59,130,246,0.15); border: 3px solid #93c5fd; transition: all 0.3s; position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 18px 54px rgba(59,130,246,0.22)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 12px 42px rgba(59,130,246,0.15)'">
-            <div style="position: absolute; top: -30px; right: -30px; width: 135px; height: 135px; background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); border-radius: 50%; opacity: 0.15;"></div>
-            <div style="position: relative; z-index: 1;">
-              <div style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; border: 5px solid #3b82f6; margin: 0 auto 21px; box-shadow: 0 9px 30px rgba(59,130,246,0.3);">
-                <img src="pictures/成员1.webp" alt="俞纯林" style="width: 100%; height: 100%; object-fit: cover;">
-              </div>
-              <div style="text-align: center; margin-bottom: 18px;">
-                <div style="display: inline-block; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 5px 18px; border-radius: 18px; font-size: 15px; font-weight: 700; margin-bottom: 12px;">
-                  博士 · Ph.D.
-                </div>
-                <h3 style="font-size: 27px; color: #1e40af; margin-bottom: 6px; font-weight: 700;">俞纯林</h3>
-              </div>
-            </div>
-          </div>
-          
-          <!-- 王浩宇 -->
-          <div class="reveal" style="--d:.05s; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-radius: 30px; padding: 36px; box-shadow: 0 12px 42px rgba(59,130,246,0.15); border: 3px solid #93c5fd; transition: all 0.3s; position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 18px 54px rgba(59,130,246,0.22)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 12px 42px rgba(59,130,246,0.15)'">
-            <div style="position: absolute; top: -30px; right: -30px; width: 135px; height: 135px; background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); border-radius: 50%; opacity: 0.15;"></div>
-            <div style="position: relative; z-index: 1;">
-              <div style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; border: 5px solid #3b82f6; margin: 0 auto 21px; box-shadow: 0 9px 30px rgba(59,130,246,0.3);">
-                <img src="pictures/成员2.webp" alt="王浩宇" style="width: 100%; height: 100%; object-fit: cover;">
-              </div>
-              <div style="text-align: center; margin-bottom: 18px;">
-                <div style="display: inline-block; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 5px 18px; border-radius: 18px; font-size: 15px; font-weight: 700; margin-bottom: 12px;">
-                  博士 · Ph.D.
-                </div>
-                <h3 style="font-size: 27px; color: #1e40af; margin-bottom: 6px; font-weight: 700;">王浩宇</h3>
-              </div>
-            </div>
-          </div>
+        <div id="doctoral-team-grid" class="m-grid cols-2" style="max-width:840px;margin-left:auto;margin-right:auto;">
+          <article class="m-card blue reveal">
+            <span class="m-badge">博士 · Ph.D.</span>
+            <div class="m-photo"><img src="pictures/成员1.webp" alt="俞纯林" loading="lazy"></div>
+            <h3>俞纯林</h3>
+            <p class="m-role">Ph.D. Candidate</p>
+          </article>
+          <article class="m-card blue reveal" style="--d:.08s">
+            <span class="m-badge">博士 · Ph.D.</span>
+            <div class="m-photo"><img src="pictures/成员2.webp" alt="王浩宇" loading="lazy"></div>
+            <h3>王浩宇</h3>
+            <p class="m-role">Ph.D. Candidate</p>
+          </article>
         </div>
       </div>
     </section>
 
     <!-- 硕士团队 -->
-    <section class="fp-section" id="master-team-section" data-anchor="masters" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);">
-      <div class="container" style="padding: 150px 30px 60px;">
-        <div style="text-align: center; margin-bottom: 36px;">
-          <div style="display: inline-block; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 9px 27px; border-radius: 30px; font-size: 20px; font-weight: 700; margin-bottom: 18px; box-shadow: 0 6px 23px rgba(16,185,129,0.4);">
-            📚 研究生团队
-          </div>
-          <h2 style="font-size: 42px; color: #065f46; margin-bottom: 12px; font-weight: 800;">硕士研究生</h2>
-          <p style="color: #10b981; font-size: 21px;">Master's Research Team</p>
+    <section class="section alt" id="master-team-section" data-anchor="masters">
+      <div class="container">
+        <div style="text-align:center;">
+          <span class="pill green">📚 研究生团队</span>
+          <h2 class="section-title" style="margin-top:16px;">硕士研究生</h2>
+          <p class="section-sub">Master's Research Team</p>
         </div>
-        
-        <div id="master-team-grid" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px; max-width: 2100px; margin-left: auto; margin-right: auto; padding-left: 0; padding-right: 0;">
-          <div class="reveal" style="background: white; border-radius: 27px; padding: 42px; box-shadow: 0 12px 45px rgba(16,185,129,0.12); border: 3px solid #a7f3d0; text-align: center; transition: transform 0.3s; width: 100%;" onmouseover="this.style.transform='translateY(-6px) scale(1.02)'; this.style.boxShadow='0 18px 60px rgba(16,185,129,0.22)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 12px 45px rgba(16,185,129,0.12)'">
-            <div style="width: 165px; height: 165px; border-radius: 50%; overflow: hidden; border: 5px solid #10b981; margin: 0 auto 24px; box-shadow: 0 9px 30px rgba(16,185,129,0.2);">
-              <img src="pictures/成员3.webp" alt="李博涛" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div style="display: inline-block; background: #d1fae5; color: #065f46; padding: 6px 18px; border-radius: 18px; font-size: 15px; font-weight: 700; margin-bottom: 15px;">硕士</div>
-            <h3 style="font-size: 27px; color: #065f46; margin-bottom: 8px; font-weight: 700;">李博涛</h3>
-          </div>
-          
-          <div class="reveal" style="background: white; border-radius: 27px; padding: 42px; box-shadow: 0 12px 45px rgba(16,185,129,0.12); border: 3px solid #a7f3d0; text-align: center; transition: transform 0.3s; width: 100%;" onmouseover="this.style.transform='translateY(-6px) scale(1.02)'; this.style.boxShadow='0 18px 60px rgba(16,185,129,0.22)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 12px 45px rgba(16,185,129,0.12)'">
-            <div style="width: 165px; height: 165px; border-radius: 50%; overflow: hidden; border: 5px solid #10b981; margin: 0 auto 24px; box-shadow: 0 9px 30px rgba(16,185,129,0.2);">
-              <img src="pictures/成员4.webp" alt="夏成龙" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div style="display: inline-block; background: #d1fae5; color: #065f46; padding: 6px 18px; border-radius: 18px; font-size: 15px; font-weight: 700; margin-bottom: 15px;">硕士</div>
-            <h3 style="font-size: 27px; color: #065f46; margin-bottom: 8px; font-weight: 700;">夏成龙</h3>
-          </div>
-          <div class="reveal" style="background: white; border-radius: 27px; padding: 42px; box-shadow: 0 12px 45px rgba(16,185,129,0.12); border: 3px solid #a7f3d0; text-align: center; transition: transform 0.3s; width: 100%;" onmouseover="this.style.transform='translateY(-6px) scale(1.02)'; this.style.boxShadow='0 18px 60px rgba(16,185,129,0.22)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 12px 45px rgba(16,185,129,0.12)'">
-            <div style="width: 165px; height: 165px; border-radius: 50%; overflow: hidden; border: 5px solid #10b981; margin: 0 auto 24px; box-shadow: 0 9px 30px rgba(16,185,129,0.2);">
-              <img src="pictures/成员7.webp" alt="许龙龙" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div style="display: inline-block; background: #d1fae5; color: #065f46; padding: 6px 18px; border-radius: 18px; font-size: 15px; font-weight: 700; margin-bottom: 15px;">硕士</div>
-            <h3 style="font-size: 27px; color: #065f46; margin-bottom: 8px; font-weight: 700;">许龙龙</h3>
-          </div>
-          
-          <div class="reveal" style="background: white; border-radius: 27px; padding: 42px; box-shadow: 0 12px 45px rgba(16,185,129,0.12); border: 3px solid #a7f3d0; text-align: center; transition: transform 0.3s; width: 100%;" onmouseover="this.style.transform='translateY(-6px) scale(1.02)'; this.style.boxShadow='0 18px 60px rgba(16,185,129,0.22)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 12px 45px rgba(16,185,129,0.12)'">
-            <div style="width: 165px; height: 165px; border-radius: 50%; overflow: hidden; border: 5px solid #10b981; margin: 0 auto 24px; box-shadow: 0 9px 30px rgba(16,185,129,0.2);">
-              <img src="pictures/成员8.webp" alt="朱状状" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div style="display: inline-block; background: #d1fae5; color: #065f46; padding: 6px 18px; border-radius: 18px; font-size: 15px; font-weight: 700; margin-bottom: 15px;">硕士</div>
-            <h3 style="font-size: 27px; color: #065f46; margin-bottom: 8px; font-weight: 700;">朱状状</h3>
-          </div>
-          
-          <div class="reveal" style="background: white; border-radius: 27px; padding: 42px; box-shadow: 0 12px 45px rgba(16,185,129,0.12); border: 3px solid #a7f3d0; text-align: center; transition: transform 0.3s; width: 100%;" onmouseover="this.style.transform='translateY(-6px) scale(1.02)'; this.style.boxShadow='0 18px 60px rgba(16,185,129,0.22)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 12px 45px rgba(16,185,129,0.12)'">
-            <div style="width: 165px; height: 165px; border-radius: 50%; overflow: hidden; border: 5px solid #10b981; margin: 0 auto 24px; box-shadow: 0 9px 30px rgba(16,185,129,0.2);">
-              <img src="pictures/成员9.webp" alt="甘语桐" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div style="display: inline-block; background: #d1fae5; color: #065f46; padding: 6px 18px; border-radius: 18px; font-size: 15px; font-weight: 700; margin-bottom: 15px;">硕士</div>
-            <h3 style="font-size: 27px; color: #065f46; margin-bottom: 8px; font-weight: 700;">甘语桐</h3>
-          </div>
+        <div id="master-team-grid" class="m-grid cols-5">
+          <article class="m-card green reveal">
+            <span class="m-badge">硕士</span>
+            <div class="m-photo"><img src="pictures/成员3.webp" alt="李博涛" loading="lazy"></div>
+            <h3>李博涛</h3>
+            <p class="m-role">M.S. Candidate</p>
+          </article>
+          <article class="m-card green reveal" style="--d:.06s">
+            <span class="m-badge">硕士</span>
+            <div class="m-photo"><img src="pictures/成员4.webp" alt="夏成龙" loading="lazy"></div>
+            <h3>夏成龙</h3>
+            <p class="m-role">M.S. Candidate</p>
+          </article>
+          <article class="m-card green reveal" style="--d:.12s">
+            <span class="m-badge">硕士</span>
+            <div class="m-photo"><img src="pictures/成员7.webp" alt="许龙龙" loading="lazy"></div>
+            <h3>许龙龙</h3>
+            <p class="m-role">M.S. Candidate</p>
+          </article>
+          <article class="m-card green reveal" style="--d:.18s">
+            <span class="m-badge">硕士</span>
+            <div class="m-photo"><img src="pictures/成员8.webp" alt="朱状状" loading="lazy"></div>
+            <h3>朱状状</h3>
+            <p class="m-role">M.S. Candidate</p>
+          </article>
+          <article class="m-card green reveal" style="--d:.24s">
+            <span class="m-badge">硕士</span>
+            <div class="m-photo"><img src="pictures/成员9.webp" alt="甘语桐" loading="lazy"></div>
+            <h3>甘语桐</h3>
+            <p class="m-role">M.S. Candidate</p>
+          </article>
         </div>
       </div>
     </section>
 
     <!-- 加入我们 -->
-    <section class="fp-section" data-anchor="join" style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%); position: relative; overflow: hidden;">
-      <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.05; background-image: radial-gradient(circle, white 2px, transparent 2px); background-size: 40px 40px;"></div>
-      <div class="container" style="position: relative; z-index: 1; text-align: center; padding: 140px 20px 60px;">
-        <div style="font-size: 64px; margin-bottom: 24px;">🚀</div>
-        <h2 style="color: white; font-size: 36px; margin-bottom: 20px; font-weight: 800;">加入我们的团队</h2>
-        <p style="color: rgba(255,255,255,0.8); font-size: 18px; max-width: 700px; margin: 0 auto 40px; line-height: 1.8;">我们持续寻找对具身智能、机器人技术充满热情的优秀人才，一起推动智能辅助技术的发展</p>
-        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-          <a href="contact.html" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 16px 40px; border-radius: 50px; font-size: 16px; font-weight: 700; text-decoration: none; box-shadow: 0 10px 30px rgba(102,126,234,0.4); transition: transform 0.3s;">
-            联系我们
-          </a>
-          <a href="contact.html" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); color: white; padding: 16px 40px; border-radius: 50px; font-size: 16px; font-weight: 700; text-decoration: none; border: 2px solid rgba(255,255,255,0.3); transition: transform 0.3s;">
-            发送简历
-          </a>
+    <section class="cta-band">
+      <div class="decor decor-c"></div>
+      <div class="container">
+        <div style="font-size:52px; margin-bottom:18px;">🚀</div>
+        <h2>加入我们的团队</h2>
+        <p>我们持续寻找对具身智能、机器人技术充满热情的优秀人才，一起推动智能辅助技术的发展</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="contact.html">联系我们</a>
+          <a class="btn btn-ghost" href="contact.html">发送简历</a>
         </div>
       </div>
     </section>
+  </main>
 
-  </div>
-
-  <!-- 右侧导航点 -->
-  <nav class="fp-nav" role="navigation" aria-label="页面导航">
-    <ul id="fp-nav-list"></ul>
-  </nav>
+  <footer class="sub-footer">
+    <div class="container">© USTB 具身智能实验室 · 北京科技大学</div>
+  </footer>
 
   <script src="admin-data.js"></script>
   <script src="dynamic-content-loader.js"></script>
   <script src="script.js"></script>
-  
-  <script>
-    // 强制全屏滚动脚本
-    (function() {
-      const wrapper = document.getElementById('fullpage-wrapper');
-      const sections = document.querySelectorAll('.fp-section');
-      const navList = document.getElementById('fp-nav-list');
-      
-      let currentIndex = 0;
-      let isScrolling = false;
-      let touchStartY = 0;
-      
-      // Section names for navigation tooltips
-      const sectionNames = ['团队概览', '导师团队', '博士团队', '硕士团队', '加入我们'];
-      
-      // Create navigation dots
-      sections.forEach((section, index) => {
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-        const tooltip = document.createElement('span');
-        
-        tooltip.className = 'fp-tooltip';
-        tooltip.textContent = sectionNames[index] || `Section ${index + 1}`;
-        
-        a.href = '#';
-        a.onclick = (e) => {
-          e.preventDefault();
-          scrollToSection(index);
-        };
-        
-        if (index === 0) {
-          a.classList.add('active');
-        }
-        
-        li.appendChild(tooltip);
-        li.appendChild(a);
-        navList.appendChild(li);
-      });
-      
-      const navItems = navList.querySelectorAll('a');
-      
-      function scrollToSection(index) {
-        if (index < 0 || index >= sections.length || isScrolling) return;
-        
-        isScrolling = true;
-        currentIndex = index;
-        
-        sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
-        
-        // Update navigation
-        navItems.forEach(item => item.classList.remove('active'));
-        navItems[index].classList.add('active');
-        
-        setTimeout(() => {
-          isScrolling = false;
-        }, 800);
-      }
-      
-      // Mouse wheel event
-      let wheelTimeout;
-      wrapper.addEventListener('wheel', (e) => {
-        if (isScrolling) {
-          e.preventDefault();
-          return;
-        }
-        
-        e.preventDefault();
-        clearTimeout(wheelTimeout);
-        wheelTimeout = setTimeout(() => {
-          if (e.deltaY > 30) { // Scroll down
-            if (currentIndex < sections.length - 1) {
-              scrollToSection(currentIndex + 1);
-            }
-          } else if (e.deltaY < -30) { // Scroll up
-            if (currentIndex > 0) {
-              scrollToSection(currentIndex - 1);
-            }
-          }
-        }, 50);
-      }, { passive: false });
-      
-      // Touch events for mobile
-      wrapper.addEventListener('touchstart', (e) => {
-        touchStartY = e.touches[0].clientY;
-      }, { passive: true });
-      
-      wrapper.addEventListener('touchend', (e) => {
-        if (isScrolling) return;
-        
-        const touchEndY = e.changedTouches[0].clientY;
-        const diff = touchStartY - touchEndY;
-        
-        if (diff > 50) {
-          // Swipe down
-          if (currentIndex < sections.length - 1) {
-            scrollToSection(currentIndex + 1);
-          }
-        } else if (diff < -50) {
-          // Swipe up
-          if (currentIndex > 0) {
-            scrollToSection(currentIndex - 1);
-          }
-        }
-      }, { passive: true });
-      
-      // Keyboard navigation
-      document.addEventListener('keydown', (e) => {
-        if (isScrolling) return;
-        
-        if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-          e.preventDefault();
-          if (currentIndex < sections.length - 1) {
-            scrollToSection(currentIndex + 1);
-          }
-        } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-          e.preventDefault();
-          if (currentIndex > 0) {
-            scrollToSection(currentIndex - 1);
-          }
-        } else if (e.key === 'Home') {
-          e.preventDefault();
-          scrollToSection(0);
-        } else if (e.key === 'End') {
-          e.preventDefault();
-          scrollToSection(sections.length - 1);
-        }
-      });
-      
-      // Update current index on scroll (for initial load and manual scroll)
-      let scrollTimeout;
-      window.addEventListener('scroll', () => {
-        if (isScrolling) return;
-        
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-          sections.forEach((section, index) => {
-            const rect = section.getBoundingClientRect();
-            if (rect.top <= window.innerHeight * 0.5 && rect.bottom >= window.innerHeight * 0.5) {
-              currentIndex = index;
-              navItems.forEach(item => item.classList.remove('active'));
-              if (navItems[index]) {
-                navItems[index].classList.add('active');
-              }
-            }
-          });
-        }, 100);
-      }, { passive: true });
-      
-      // Initialize
-      scrollToSection(0);
-    })();
-  </script>
 </body>
 </html>

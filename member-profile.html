@@ -2,143 +2,130 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="USTB具身智能实验室成员详情页" />
   <title id="pageTitle">成员介绍 - USTB 具身智能实验室</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="theme-huaqin">
+<body class="theme-huaqin grain">
+
+  <!-- 全站氛围光斑 -->
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
   <header class="site-header theme-huaqin">
     <div class="container">
-      <a class="logo" href="index.html">北京科技大学具身智能实验室</a>
+      <a class="logo" href="index.html" data-i18n="nav.brand">USTB具身智能实验室</a>
       <nav class="nav" id="mainNav">
-        <button class="nav-toggle" aria-label="toggle menu" onclick="document.getElementById('mainNav').dataset.open = document.getElementById('mainNav').dataset.open === 'true' ? 'false' : 'true'">
+        <button class="nav-toggle" aria-label="打开菜单" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
         <ul class="nav-list">
           <li><a href="index.html" data-i18n="nav.home">首页</a></li>
           <li><a href="cases.html" data-i18n="cases_title">科研成果</a></li>
-          <li><a href="members.html" data-i18n="members_title">成员介绍</a></li>
+          <li><a href="members.html" class="active" data-i18n="members_title">成员介绍</a></li>
           <li><a href="partners.html" data-i18n="partners_title">合作伙伴</a></li>
           <li><a href="contact.html" data-i18n="nav.contact">联系方式</a></li>
         </ul>
         <div class="tools">
-          <select id="langSwitcher" aria-label="language">
+          <select id="langSwitcher" aria-label="语言切换">
             <option value="zh-CN">简体中文</option>
             <option value="zh-HK">繁體中文</option>
             <option value="en">English</option>
           </select>
-          <button id="themeToggle">深色</button>
+          <button id="themeToggle" data-i18n="toolbar.theme">深色</button>
         </div>
       </nav>
     </div>
   </header>
 
   <main id="memberProfile">
-    <!-- 返回按钮 -->
-    <a href="members.html" style="position: fixed; top: 80px; left: 24px; width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; color: var(--primary); box-shadow: 0 4px 16px rgba(0,0,0,0.1); z-index: 100; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 6px 24px rgba(102,126,234,0.3)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 16px rgba(0,0,0,0.1)'">
-      ←
-    </a>
-
-    <!-- Hero区 -->
-    <section id="heroSection" style="background: var(--gradient); padding: 140px 0 80px; position: relative; overflow: hidden;">
-      <div style="position: absolute; inset: 0; opacity: 0.05; background: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22%3E%3Ccircle cx=%2230%22 cy=%2230%22 r=%222%22 fill=%22white%22/%3E%3C/svg%3E');"></div>
-      
-      <div class="container" style="position: relative; z-index: 1;">
-        <div style="display: flex; gap: 60px; align-items: center; max-width: 1100px; margin: 0 auto;">
-          <!-- 头像 -->
-          <div id="avatarContainer" style="flex-shrink: 0;"></div>
-          
-          <!-- 基本信息 -->
-          <div style="flex: 1; color: white;">
-            <div id="positionBadge" style="display: inline-block; margin-bottom: 16px;"></div>
-            <h1 id="memberName" style="font-size: 48px; margin-bottom: 16px; font-weight: 800;"></h1>
-            <p id="memberTitle" style="font-size: 20px; opacity: 0.95; margin-bottom: 24px; line-height: 1.6;"></p>
+    <!-- 头部：头像与基本信息 -->
+    <section class="profile-hero">
+      <div class="container" style="max-width:1100px;">
+        <a href="members.html" class="back-btn">← 返回成员列表</a>
+        <div class="p-wrap">
+          <div id="avatarContainer" class="p-avatar"></div>
+          <div class="p-meta">
+            <div id="positionBadge"></div>
+            <h1 id="memberName"></h1>
+            <p id="memberTitle" class="p-title"></p>
+            <div id="memberStats"></div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- 研究方向 -->
-    <section class="section" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); padding: 80px 0;">
-      <div class="container" style="max-width: 1100px;">
-        <h2 class="reveal" style="font-size: 32px; color: #1f2937; margin-bottom: 40px; text-align: center; font-weight: 700;">🔬 研究方向</h2>
-        <div id="researchAreas" class="reveal" style="--d:.1s;"></div>
+    <section class="section alt" style="padding-top:56px;">
+      <div class="container" style="max-width:1100px;">
+        <div style="text-align:center;"><h2 class="section-title">🔬 研究方向</h2></div>
+        <div id="researchAreas" class="reveal reveal-show"></div>
       </div>
     </section>
 
     <!-- 主要成果 -->
-    <section class="section" style="background: white; padding: 80px 0;">
-      <div class="container" style="max-width: 1100px;">
-        <h2 class="reveal" style="font-size: 32px; color: #1f2937; margin-bottom: 40px; text-align: center; font-weight: 700;">🏆 主要成果</h2>
-        <div id="achievements" class="reveal" style="--d:.1s;"></div>
+    <section class="section" style="padding-top:56px;">
+      <div class="container" style="max-width:1100px;">
+        <div style="text-align:center;"><h2 class="section-title">🏆 主要成果</h2></div>
+        <div id="achievements" class="reveal reveal-show"></div>
       </div>
     </section>
 
     <!-- 项目经历 -->
-    <section class="section" style="background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%); padding: 80px 0;">
-      <div class="container" style="max-width: 1100px;">
-        <h2 class="reveal" style="font-size: 32px; color: #1f2937; margin-bottom: 40px; text-align: center; font-weight: 700;">💼 项目经历</h2>
-        <div id="projects" class="reveal" style="--d:.1s;"></div>
+    <section class="section alt" style="padding-top:56px;">
+      <div class="container" style="max-width:1100px;">
+        <div style="text-align:center;"><h2 class="section-title">💼 项目经历</h2></div>
+        <div id="projects" class="reveal reveal-show"></div>
       </div>
     </section>
 
-    <!-- 代表性论文/专利 -->
-    <section class="section" style="background: white; padding: 80px 0;">
-      <div class="container" style="max-width: 1100px;">
-        <h2 class="reveal" style="font-size: 32px; color: #1f2937; margin-bottom: 40px; text-align: center; font-weight: 700;">📚 代表性成果</h2>
-        <div id="publications" class="reveal" style="--d:.1s;"></div>
+    <!-- 代表性成果 -->
+    <section class="section" style="padding-top:56px;">
+      <div class="container" style="max-width:1100px;">
+        <div style="text-align:center;"><h2 class="section-title">📚 代表性成果</h2></div>
+        <div id="publications" class="reveal reveal-show"></div>
       </div>
     </section>
 
     <!-- 联系方式 -->
-    <section class="section" style="background: var(--gradient); padding: 60px 0;">
-      <div class="container" style="text-align: center; max-width: 800px;">
-        <h2 class="reveal" style="font-size: 28px; color: white; margin-bottom: 20px; font-weight: 700;">📮 联系方式</h2>
-        <div id="contactInfo" class="reveal" style="--d:.05s; color: rgba(255,255,255,0.95); font-size: 16px; line-height: 2;"></div>
+    <section class="section alt" style="padding-top:56px; padding-bottom:96px;">
+      <div class="container" style="max-width:860px; text-align:center;">
+        <h2 class="section-title">📮 联系方式</h2>
+        <div id="contactInfo" class="reveal reveal-show" style="text-align:left;"></div>
       </div>
     </section>
   </main>
 
-  <!-- 自定义模态框 -->
-  <div id="customModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 10000; backdrop-filter: blur(8px); align-items: center; justify-content: center;">
-    <div style="background: white; border-radius: 24px; padding: 48px 40px; max-width: 500px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.3); position: relative; animation: modalFadeIn 0.3s ease;">
-      <div style="text-align: center; margin-bottom: 24px;">
-        <div style="font-size: 72px; margin-bottom: 16px;">🚧</div>
-        <h2 id="modalTitle" style="font-size: 28px; font-weight: 800; color: #1f2937; margin-bottom: 12px;">产品开发中</h2>
-        <p id="modalMessage" style="font-size: 16px; line-height: 1.8; color: #6b7280; margin: 0;"></p>
-      </div>
-      <button onclick="closeModal()" style="width: 100%; background: var(--gradient); color: white; border: none; padding: 16px; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 16px rgba(102,126,234,0.4);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 24px rgba(102,126,234,0.5)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 16px rgba(102,126,234,0.4)'">
-        知道了
-      </button>
+  <footer class="sub-footer">
+    <div class="container">© USTB 具身智能实验室 · 北京科技大学</div>
+  </footer>
+
+  <!-- 提示弹窗 -->
+  <div id="customModal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-box" style="max-width:480px; text-align:center;">
+      <button class="modal-close" onclick="closeModal()" aria-label="关闭">✕</button>
+      <div style="font-size:56px; margin:10px 0 16px;">🚧</div>
+      <h2 id="modalTitle" style="font-size:22px; margin-bottom:10px;">产品开发中</h2>
+      <p id="modalMessage" style="color:var(--muted); line-height:1.8;"></p>
+      <button class="btn btn-primary" style="margin-top:22px; width:100%; justify-content:center;" onclick="closeModal()">知道了</button>
     </div>
   </div>
-
-  <style>
-    @keyframes modalFadeIn {
-      from { opacity: 0; transform: scale(0.9) translateY(-20px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
-    }
-  </style>
 
   <script>
     function showModal(title, message) {
       document.getElementById('modalTitle').textContent = title;
       document.getElementById('modalMessage').textContent = message;
-      const modal = document.getElementById('customModal');
-      modal.style.display = 'flex';
+      document.getElementById('customModal').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
-    
     function closeModal() {
-      document.getElementById('customModal').style.display = 'none';
-      document.body.style.overflow = 'auto';
+      document.getElementById('customModal').classList.remove('open');
+      document.body.style.overflow = '';
     }
-    
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') { closeModal(); }
     });
-    
-    document.getElementById('customModal').addEventListener('click', function(e) {
+    document.getElementById('customModal').addEventListener('click', function (e) {
       if (e.target === this) { closeModal(); }
     });
 
@@ -148,7 +135,6 @@
         name: '张桃红',
         title: '教授 · 博士生导师',
         position: '实验室负责人',
-        positionColor: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
         avatar: 'pictures/成员0.webp',
         description: '北京科技大学计算机与通信工程学院教授、博士生导师。中国科学院研究生院博士毕业，曾赴美国哈佛-麻省理工HST（健康科学与技术）、英国拉夫堡大学3D打印组访学。现任北京图形图像学会女性科技工作者委员会副主任、中国体视学学会智慧医疗专委会常委、中国人工智能学会智慧医疗专委会委员。研究方向为人工智能、具身智能、机器视觉、计算机建模与仿真。',
         externalLink: 'https://scce.ustb.edu.cn/shiziduiwu/jiaoshixinxi/2018-04-12/57.html',
@@ -216,7 +202,6 @@
         name: '邢博文',
         title: '副教授 · 硕士生导师',
         position: '学术顾问',
-        positionColor: 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)',
         avatar: 'pictures/成员5.webp',
         description: '北京科技大学计算机与通信工程学院副教授、硕士生导师。长期从事人工智能和自然语言处理的前沿研究，专注于基于大语言模型的异构语言信息处理及其在垂直领域的应用。',
         externalLink: 'https://scce.ustb.edu.cn/shiziduiwu/jiaoshixinxi/2025-01-10/234.html',
@@ -274,7 +259,6 @@
         name: '俞纯林',
         title: '博士 · 在读',
         position: '算法研究',
-        positionColor: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
         avatar: 'pictures/成员1.webp',
         description: 'SLAM算法与视觉导航方向研究者，专注于复杂环境下的机器人定位与建图',
         stats: [
@@ -313,7 +297,6 @@
         name: '王浩宇',
         title: '博士 · 在读',
         position: '深度学习',
-        positionColor: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
         avatar: 'pictures/成员2.webp',
         description: '计算机视觉与深度学习方向研究者，专注于目标检测与图像分割算法',
         stats: [
@@ -353,7 +336,6 @@
         name: '李博涛',
         title: '硕士 · 在读',
         position: '机器学习',
-        positionColor: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
         avatar: 'pictures/成员3.webp',
         description: '机器学习与数据分析方向研究者，专注于智能算法在机器人系统中的应用',
         stats: [
@@ -389,7 +371,6 @@
         name: '夏成龙',
         title: '硕士 · 在读',
         position: '嵌入式开发',
-        positionColor: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
         avatar: 'pictures/成员4.webp',
         description: '嵌入式系统与硬件集成方向研究者，专注于机器人底层控制与硬件开发',
         stats: [
@@ -423,7 +404,6 @@
         name: '许龙龙',
         title: '硕士 · 在读',
         position: '图像处理',
-        positionColor: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
         avatar: 'pictures/成员7.webp',
         description: '图像处理与特征提取方向研究者，专注于工业视觉检测',
         stats: [
@@ -457,7 +437,6 @@
         name: '朱状状',
         title: '硕士 · 在读',
         position: '系统测试',
-        positionColor: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
         avatar: 'pictures/成员8.webp',
         description: '系统测试与质量保障方向研究者，专注于机器人系统可靠性',
         stats: [
@@ -491,7 +470,6 @@
         name: '甘语桐',
         title: '硕士 · 在读',
         position: '前端开发',
-        positionColor: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
         avatar: 'pictures/成员9.webp',
         description: 'Web开发与人机交互界面设计方向研究者',
         stats: [
@@ -526,141 +504,122 @@
       }
     };
 
+    // 徽章配色：按职称映射到设计系统的彩色徽章
+    function badgeVariant(member) {
+      const t = member.title || '';
+      if (t.includes('教授')) return 'gold';
+      if (t.includes('博士')) return 'blue';
+      if (t.includes('硕士')) return 'green';
+      return 'violet';
+    }
+
     // 从URL获取成员ID
     const urlParams = new URLSearchParams(window.location.search);
     const memberId = urlParams.get('id');
 
     if (memberId && membersData[memberId]) {
       const member = membersData[memberId];
-      
+
       // 设置页面标题
       document.getElementById('pageTitle').textContent = `${member.name} - USTB 具身智能实验室`;
-      
-      // 设置头像
-      document.getElementById('avatarContainer').innerHTML = `
-        <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden; border: 6px solid white; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
-          <img src="${member.avatar}" alt="${member.name}" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-      `;
-      
-      // 设置职位徽章
-      document.getElementById('positionBadge').innerHTML = `
-        <span style="background: ${member.positionColor}; color: white; padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: 700;">
-          ${member.position}
-        </span>
-      `;
-      
-      // 设置基本信息
+
+      // 头像
+      document.getElementById('avatarContainer').innerHTML =
+        `<img src="${member.avatar}" alt="${member.name}">`;
+
+      // 职位徽章
+      document.getElementById('positionBadge').innerHTML =
+        `<span class="pill ${badgeVariant(member)}">${member.position}</span>`;
+
+      // 基本信息
       document.getElementById('memberName').textContent = member.name;
       document.getElementById('memberTitle').textContent = member.title + ' · ' + member.description;
-      
-      // 设置研究方向
-      const researchHTML = `
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; max-width: 900px; margin: 0 auto;">
-          ${member.researchAreas.map(area => `
-            <div style="background: white; padding: 36px; border-radius: 20px; box-shadow: 0 6px 30px rgba(0,0,0,0.1); transition: all 0.3s;" onmouseover="this.style.transform='translateY(-6px)'; this.style.boxShadow='0 12px 40px rgba(102,126,234,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 6px 30px rgba(0,0,0,0.1)'">
-              <div style="font-size: 56px; margin-bottom: 20px;">${area.icon}</div>
-              <h3 style="font-size: 22px; color: var(--primary); margin-bottom: 16px; font-weight: 800;">${area.title}</h3>
-              <p style="color: #6b7280; line-height: 1.8; margin: 0; font-size: 15px;">${area.desc}</p>
+
+      // 统计胶囊（如有）
+      if (Array.isArray(member.stats) && member.stats.length) {
+        document.getElementById('memberStats').innerHTML =
+          `<div class="stat-pills" style="justify-content:flex-start; margin-top:22px;">` +
+          member.stats.map(s => `<div class="stat-pill"><b>${s.value}</b><span>${s.label}</span></div>`).join('') +
+          `</div>`;
+      }
+
+      // 研究方向
+      document.getElementById('researchAreas').innerHTML = `
+        <div class="grid cols-2" style="margin-top:26px;">
+          ${member.researchAreas.map((area, i) => `
+            <div class="card" style="--d:${i * 0.06}s">
+              <div class="perk-ico" style="width:54px;height:54px;font-size:27px;">${area.icon}</div>
+              <h3>${area.title}</h3>
+              <p>${area.desc}</p>
             </div>
           `).join('')}
         </div>
       `;
-      document.getElementById('researchAreas').innerHTML = researchHTML;
-      
-      // 设置主要成果
-      const achievementsHTML = `
-        <div style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); padding: 40px; border-radius: 20px; border-left: 6px solid var(--primary);">
-          <ul style="list-style: none; padding: 0; margin: 0;">
-            ${member.achievements.map((achievement, index) => `
-              <li style="padding: 16px 0; border-bottom: ${index < member.achievements.length - 1 ? '1px solid rgba(102,126,234,0.1)' : 'none'}; display: flex; align-items: start; gap: 16px;">
-                <span style="background: var(--gradient); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">${index + 1}</span>
-                <span style="color: #374151; font-size: 16px; line-height: 1.8; flex: 1;">${achievement}</span>
-              </li>
-            `).join('')}
-          </ul>
-        </div>
+
+      // 主要成果
+      document.getElementById('achievements').innerHTML = `
+        <ul class="num-list">
+          ${member.achievements.map(a => `<li>${a}</li>`).join('')}
+        </ul>
       `;
-      document.getElementById('achievements').innerHTML = achievementsHTML;
-      
-      // 设置项目经历
-      const projectsHTML = `
-        <div style="display: flex; flex-direction: column; gap: 24px;">
+
+      // 项目经历
+      document.getElementById('projects').innerHTML = `
+        <div class="proj-list">
           ${member.projects.map(project => `
-            <div style="background: white; padding: 32px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-left: 4px solid var(--primary);">
-              <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
-                <h3 style="font-size: 20px; color: #1f2937; font-weight: 700; margin: 0;">${project.name}</h3>
-                <span style="background: linear-gradient(135deg, #e0e7ff 0%, #ddd6fe 100%); color: #7c3aed; padding: 6px 16px; border-radius: 12px; font-size: 13px; font-weight: 600; white-space: nowrap;">${project.year}</span>
+            <div class="proj">
+              <div class="proj-head">
+                <h3>${project.name}</h3>
+                <span class="pill violet">${project.year}</span>
               </div>
-              ${project.role ? `<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
-                <span style="background: var(--gradient); color: white; padding: 4px 12px; border-radius: 8px; font-size: 12px; font-weight: 600;">担任角色</span>
-                <span style="color: var(--primary); font-weight: 600;">${project.role}</span>
-              </div>` : ''}
-              <p style="color: #6b7280; line-height: 1.8; margin: 0;">${project.desc}</p>
+              ${project.role ? `
+                <div class="proj-role">
+                  <span class="pill blue">担任角色</span>
+                  <span>${project.role}</span>
+                </div>` : ''}
+              <p>${project.desc}</p>
             </div>
           `).join('')}
         </div>
       `;
-      document.getElementById('projects').innerHTML = projectsHTML;
-      
-      // 设置代表性成果
-      const publicationsHTML = `
-        <div style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); padding: 40px; border-radius: 20px;">
-          <ul style="list-style: none; padding: 0; margin: 0;">
-            ${member.publications.map((pub, index) => `
-              <li style="padding: 20px 0; border-bottom: ${index < member.publications.length - 1 ? '2px solid rgba(102,126,234,0.1)' : 'none'}; color: #374151; line-height: 1.8; font-size: 15px;">
-                <span style="display: inline-block; background: var(--gradient); color: white; width: 24px; height: 24px; border-radius: 6px; text-align: center; line-height: 24px; font-size: 12px; font-weight: 700; margin-right: 12px;">${index + 1}</span>
-                ${pub}
-              </li>
-            `).join('')}
-          </ul>
-        </div>
+
+      // 代表性成果
+      document.getElementById('publications').innerHTML = `
+        <ul class="num-list">
+          ${member.publications.map(pub => `<li>${pub}</li>`).join('')}
+        </ul>
       `;
-      document.getElementById('publications').innerHTML = publicationsHTML;
-      
-      // 设置联系方式
-      const contactHTML = Object.entries(member.contact).map(([key, value]) => {
-        const labels = {
-          email: '📧 邮箱',
-          office: '🏢 办公室',
-          phone: '📱 电话',
-          github: '💻 GitHub',
-          wechat: '💬 微信',
-          scholar: '📚 Google Scholar',
-          portfolio: '🌐 个人主页',
-          department: '📋 系所',
-          school: '🏛️ 学院',
-          university: '🎓 大学',
-          position: '💼 职位'
-        };
-        return `<div>${labels[key] || key}: <strong>${value}</strong></div>`;
+
+      // 联系方式
+      const contactLabels = {
+        email: '邮箱', office: '办公室', phone: '电话', github: 'GitHub',
+        wechat: '微信', scholar: 'Google Scholar', portfolio: '个人主页',
+        department: '系所', school: '学院', university: '大学', position: '职位'
+      };
+      const contactRows = Object.entries(member.contact).map(([key, value]) => {
+        let v = `<strong>${value}</strong>`;
+        if (key === 'email') v = `<a href="mailto:${value}">${value}</a>`;
+        else if (key === 'github' || key === 'scholar' || key === 'portfolio') v = `<a href="https://${value}" target="_blank" rel="noopener noreferrer">${value}</a>`;
+        return `<li><span class="k">${contactLabels[key] || key}</span><span class="v">${v}</span></li>`;
       }).join('');
-      
-      // 添加官网链接（如果有）
       const externalLinkHTML = member.externalLink ? `
-        <div style="margin-top: 24px; padding-top: 24px; border-top: 2px solid rgba(255,255,255,0.2);">
-          <a href="${member.externalLink}" target="_blank" rel="noopener noreferrer" 
-             style="display: inline-flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.2); 
-                    backdrop-filter: blur(10px); color: white; padding: 14px 32px; border-radius: 50px; 
-                    text-decoration: none; font-weight: 700; border: 2px solid white; transition: all 0.3s; 
-                    box-shadow: 0 8px 24px rgba(0,0,0,0.2);"
-             onmouseover="this.style.transform='translateY(-2px)'; this.style.background='rgba(255,255,255,0.3)'"
-             onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(255,255,255,0.2)'">
-            <span style="font-size: 20px;">🔗</span>
-            <span>访问官网个人主页</span>
-          </a>
+        <div class="cta" style="margin-top:26px;">
+          <a class="btn btn-primary" href="${member.externalLink}" target="_blank" rel="noopener noreferrer">🔗 访问官网个人主页</a>
         </div>
       ` : '';
-      
-      document.getElementById('contactInfo').innerHTML = contactHTML + externalLinkHTML;
-      
+      document.getElementById('contactInfo').innerHTML =
+        `<ul class="info-rows" style="margin-top:6px;">${contactRows}</ul>${externalLinkHTML}`;
+
     } else {
-      // 如果没有找到成员，显示错误信息
+      // 未找到成员
       document.getElementById('memberProfile').innerHTML = `
-        <section style="min-height: 60vh; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 24px;">
-          <div style="font-size: 80px;">😕</div>
-          <h1 style="font-size: 32px; color: #1f2937;">未找到该成员</h1>
-          <a href="members.html" style="background: var(--gradient); color: white; padding: 14px 32px; border-radius: 50px; text-decoration: none; font-weight: 700;">返回成员列表</a>
+        <section style="min-height:64vh; display:flex; align-items:center; justify-content:center; padding:120px 20px 60px;">
+          <div class="card" style="max-width:460px; text-align:center; padding:48px 40px;">
+            <div style="font-size:64px; margin-bottom:18px;">😕</div>
+            <h1 style="font-size:26px; margin-bottom:12px;">未找到该成员</h1>
+            <p style="color:var(--muted); margin-bottom:26px;">链接可能有误，或该成员页面尚未开放</p>
+            <a href="members.html" class="btn btn-primary">返回成员列表</a>
+          </div>
         </section>
       `;
     }
@@ -669,4 +628,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-

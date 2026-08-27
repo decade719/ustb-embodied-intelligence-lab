@@ -2,336 +2,117 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="USTB具身智能实验室合作伙伴：携手产业、学界与社区伙伴，共建开放生态与可持续发展。" />
   <title>合作伙伴 - USTB 具身智能实验室</title>
   <link rel="stylesheet" href="styles.css" />
-  
-  <style>
-    /* 全屏滚动样式 */
-    html, body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      height: 100%;
-    }
-    
-    #fullpage-wrapper {
-      height: 100vh;
-      overflow-y: scroll;
-      scroll-snap-type: y mandatory;
-      scroll-behavior: smooth;
-    }
-    
-    .fp-section {
-      height: 100vh;
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
-      position: relative;
-      overflow-y: auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .fp-section .container {
-      width: 100%;
-      max-width: 1400px;
-      padding: 60px 20px;
-    }
-    
-    /* 导航点样式 */
-    .fp-nav {
-      position: fixed;
-      right: 30px;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 9999;
-    }
-    
-    .fp-nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    
-    .fp-nav li {
-      position: relative;
-    }
-    
-    .fp-nav a {
-      display: block;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.5);
-      border: 2px solid rgba(102,126,234,0.8);
-      transition: all 0.3s;
-      cursor: pointer;
-    }
-    
-    .fp-nav a:hover,
-    .fp-nav a.active {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      transform: scale(1.4);
-      box-shadow: 0 0 20px rgba(102,126,234,0.6);
-    }
-    
-    .fp-nav .fp-tooltip {
-      position: absolute;
-      right: 32px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0,0,0,0.85);
-      color: white;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.3s;
-    }
-    
-    .fp-nav li:hover .fp-tooltip {
-      opacity: 1;
-      transform: translateY(-50%) translateX(-8px);
-    }
-    
-    @media (max-width: 768px) {
-      .fp-nav {
-        right: 15px;
-      }
-      
-      .fp-nav a {
-        width: 10px;
-        height: 10px;
-      }
-      
-      .fp-section .container {
-        padding: 40px 15px;
-      }
-    }
-  </style>
 </head>
-<body class="theme-huaqin">
-  <header class="site-header theme-huaqin" style="position: fixed; top: 0; left: 0; right: 0; z-index: 10000;">
+<body class="theme-huaqin grain partners-page">
+
+  <!-- 全站氛围光斑 -->
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <header class="site-header theme-huaqin">
     <div class="container">
-      <a class="logo" href="index.html" data-i18n="nav.brand">深维智能科技-北京科技大学</a>
+      <a class="logo" href="index.html" data-i18n="nav.brand">USTB具身智能实验室</a>
       <nav class="nav" id="mainNav">
-        <button class="nav-toggle" aria-label="toggle menu" onclick="document.getElementById('mainNav').dataset.open = document.getElementById('mainNav').dataset.open === 'true' ? 'false' : 'true'">
+        <button class="nav-toggle" aria-label="打开菜单" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
         <ul class="nav-list">
           <li><a href="index.html" data-i18n="nav.home">首页</a></li>
           <li><a href="cases.html" data-i18n="cases_title">科研成果</a></li>
           <li><a href="members.html" data-i18n="members_title">成员介绍</a></li>
-          <li><a href="partners.html" data-i18n="partners_title">合作伙伴</a></li>
+          <li><a href="partners.html" class="active" data-i18n="partners_title">合作伙伴</a></li>
           <li><a href="contact.html" data-i18n="nav.contact">联系方式</a></li>
         </ul>
         <div class="tools">
-          <select id="langSwitcher" aria-label="language">
+          <select id="langSwitcher" aria-label="语言切换">
             <option value="zh-CN">简体中文</option>
-            <option value="zh-HK">繁体中文</option>
-            <option value="en-us">English</option>
+            <option value="zh-HK">繁體中文</option>
+            <option value="en">English</option>
           </select>
-          <button id="themeToggle" data-i18n="theme_toggle">🌙</button>
+          <button id="themeToggle" data-i18n="toolbar.theme">深色</button>
         </div>
       </nav>
     </div>
   </header>
 
-  <!-- 全屏滚动容器 -->
-  <div id="fullpage-wrapper">
-    
-    <!-- Hero区 -->
-    <section class="fp-section hero-plain" data-anchor="hero" style="background: var(--gradient);">
-      <div class="container hero-content" style="text-align: center; padding: 120px 20px 40px;">
-        <h1 style="color: white; font-size: 36px; margin-bottom: 12px; font-weight: 800;">合作伙伴</h1>
-        <p style="color: rgba(255,255,255,0.95); font-size: 16px; max-width: 700px; margin: 0 auto;">携手产业、学界与社区伙伴，共建开放生态与可持续发展</p>
+  <main>
+    <!-- 页首 -->
+    <section class="page-hero">
+      <div class="decor decor-a"></div>
+      <div class="decor decor-b"></div>
+      <div class="container">
+        <div class="eyebrow">Partners · 生态合作</div>
+        <h1>合作伙伴</h1>
+        <p class="lead">携手产业、学界与社区伙伴，共建开放生态与可持续发展</p>
       </div>
     </section>
 
     <!-- 生态合作 -->
-    <section class="fp-section" data-anchor="partners" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);">
-      <div class="container" style="padding: 100px 20px 40px;">
-        <h2 class="section-title" style="text-align: center; margin-bottom: 40px; font-size: 30px; color: #1e40af;">生态合作</h2>
-        <div class="grid" style="display: flex; justify-content: center; max-width: 1300px; margin: 0 auto;">
-          <article class="card" style="background: white; padding: 32px; border-radius: 20px; box-shadow: 0 10px 40px rgba(59,130,246,0.15); transition: all 0.3s; max-width: 400px; width: 100%;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 15px 50px rgba(59,130,246,0.25)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 40px rgba(59,130,246,0.15)'">
-            <div class="card-media" style="margin-bottom: 24px;"><img src="https://picsum.photos/seed/shenwei-tech/800/600" alt="深维科技公司" style="width: 100%; border-radius: 12px;"></div>
-            <h3 style="font-size: 22px; color: #1e40af; margin-bottom: 12px; font-weight: 700;">深维科技公司</h3>
-            <p style="color: #60a5fa; line-height: 1.7;">技术合作与产业应用，共同推进具身智能技术发展。</p>
+    <section id="partners" class="section alt">
+      <div class="container">
+        <div style="text-align:center;">
+          <h2 class="section-title">生态合作</h2>
+        </div>
+        <div style="display:flex; justify-content:center; margin-top:38px;">
+          <article class="card reveal" style="max-width:420px; width:100%;">
+            <div class="card-media" onclick="openImageModal('pictures/29.webp','深维科技公司')"><img src="pictures/29.webp" alt="深维科技公司" loading="lazy" /></div>
+            <h3>深维科技公司</h3>
+            <p>技术合作与产业应用，共同推进具身智能技术发展。</p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- 联系合作 -->
-    <section class="fp-section" data-anchor="contact" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-      <div class="container" style="text-align: center; padding: 140px 20px 60px;">
-        <h2 class="reveal" style="font-size: 36px; color: white; margin-bottom: 20px; font-weight: 800;">寻求合作伙伴</h2>
-        <p class="reveal" style="--d:.05s; font-size: 18px; color: rgba(255,255,255,0.95); margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.8;">
-          我们诚邀产业伙伴、高校机构、技术服务商共同探索智能机器人领域的创新机会。<br>无论是技术合作、市场拓展还是学术交流，都欢迎与我们联系！
-        </p>
-        <a href="contact.html" class="reveal" style="--d:.1s; display: inline-block; background: white; color: var(--primary); padding: 16px 40px; border-radius: 50px; font-size: 18px; font-weight: 700; text-decoration: none; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: all 0.3s;">
-          联系我们 →
-        </a>
+    <!-- 寻求合作伙伴 -->
+    <section class="cta-band">
+      <div class="decor decor-c"></div>
+      <div class="container">
+        <div class="eyebrow">Join Us · 寻求合作</div>
+        <h2>寻求合作伙伴</h2>
+        <p>我们诚邀产业伙伴、高校机构、技术服务商共同探索智能机器人领域的创新机会。<br />无论是技术合作、市场拓展还是学术交流，都欢迎与我们联系！</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="contact.html">联系我们 →</a>
+          <a class="btn btn-ghost" href="cases.html">了解科研成果</a>
+        </div>
       </div>
     </section>
+  </main>
 
+  <footer class="sub-footer">
+    <div class="container">© USTB 具身智能实验室 · 北京科技大学</div>
+  </footer>
+
+  <!-- 图片查看器 -->
+  <div id="imageModal" class="modal" role="dialog" aria-modal="true" onclick="closeImageModal()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeImageModal()" aria-label="关闭">✕</button>
+      <img id="modalImage" src="" alt="" />
+      <div id="modalImageTitle" class="modal-title"></div>
+    </div>
   </div>
 
-  <!-- 右侧导航点 -->
-  <nav class="fp-nav" role="navigation" aria-label="页面导航">
-    <ul id="fp-nav-list"></ul>
-  </nav>
-
   <script src="script.js"></script>
-  
   <script>
-    // 强制全屏滚动脚本
-    (function() {
-      const wrapper = document.getElementById('fullpage-wrapper');
-      const sections = document.querySelectorAll('.fp-section');
-      const navList = document.getElementById('fp-nav-list');
-      
-      let currentIndex = 0;
-      let isScrolling = false;
-      let touchStartY = 0;
-      
-      const sectionNames = ['合作伙伴', '生态合作', '寻求合作'];
-      
-      sections.forEach((section, index) => {
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-        const tooltip = document.createElement('span');
-        
-        tooltip.className = 'fp-tooltip';
-        tooltip.textContent = sectionNames[index] || `Section ${index + 1}`;
-        
-        a.href = '#';
-        a.onclick = (e) => {
-          e.preventDefault();
-          scrollToSection(index);
-        };
-        
-        li.appendChild(tooltip);
-        li.appendChild(a);
-        navList.appendChild(li);
-      });
-      
-      const navItems = navList.querySelectorAll('a');
-      
-      function scrollToSection(index) {
-        if (index < 0 || index >= sections.length || isScrolling) return;
-        
-        isScrolling = true;
-        currentIndex = index;
-        
-        sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
-        
-        navItems.forEach(item => item.classList.remove('active'));
-        navItems[index].classList.add('active');
-        
-        setTimeout(() => {
-          isScrolling = false;
-        }, 800);
-      }
-      
-      let wheelTimeout;
-      wrapper.addEventListener('wheel', (e) => {
-        if (isScrolling) {
-          e.preventDefault();
-          return;
-        }
-        
-        clearTimeout(wheelTimeout);
-        wheelTimeout = setTimeout(() => {
-          if (e.deltaY > 30) {
-            if (currentIndex < sections.length - 1) {
-              scrollToSection(currentIndex + 1);
-            }
-          } else if (e.deltaY < -30) {
-            if (currentIndex > 0) {
-              scrollToSection(currentIndex - 1);
-            }
-          }
-        }, 50);
-      }, { passive: false });
-      
-      wrapper.addEventListener('touchstart', (e) => {
-        touchStartY = e.touches[0].clientY;
-      }, { passive: true });
-      
-      wrapper.addEventListener('touchend', (e) => {
-        if (isScrolling) return;
-        
-        const touchEndY = e.changedTouches[0].clientY;
-        const diff = touchStartY - touchEndY;
-        
-        if (Math.abs(diff) > 50) {
-          if (diff > 0 && currentIndex < sections.length - 1) {
-            scrollToSection(currentIndex + 1);
-          } else if (diff < 0 && currentIndex > 0) {
-            scrollToSection(currentIndex - 1);
-          }
-        }
-      }, { passive: true });
-      
-      document.addEventListener('keydown', (e) => {
-        if (isScrolling) return;
-        
-        switch(e.key) {
-          case 'ArrowDown':
-          case 'PageDown':
-            e.preventDefault();
-            if (currentIndex < sections.length - 1) {
-              scrollToSection(currentIndex + 1);
-            }
-            break;
-          case 'ArrowUp':
-          case 'PageUp':
-            e.preventDefault();
-            if (currentIndex > 0) {
-              scrollToSection(currentIndex - 1);
-            }
-            break;
-          case 'Home':
-            e.preventDefault();
-            scrollToSection(0);
-            break;
-          case 'End':
-            e.preventDefault();
-            scrollToSection(sections.length - 1);
-            break;
-        }
-      });
-      
-      let scrollTimeout;
-      wrapper.addEventListener('scroll', () => {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-          if (!isScrolling) {
-            const scrollTop = wrapper.scrollTop;
-            const windowHeight = wrapper.clientHeight;
-            const newIndex = Math.round(scrollTop / windowHeight);
-            
-            if (newIndex !== currentIndex && newIndex >= 0 && newIndex < sections.length) {
-              currentIndex = newIndex;
-              navItems.forEach(item => item.classList.remove('active'));
-              navItems[currentIndex].classList.add('active');
-            }
-          }
-        }, 100);
-      }, { passive: true });
-      
-      if (navItems.length > 0) {
-        navItems[0].classList.add('active');
-      }
-    })();
+    function openImageModal(imageSrc, imageTitle) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      const modalImageTitle = document.getElementById('modalImageTitle');
+      modalImage.src = imageSrc;
+      modalImage.alt = imageTitle;
+      modalImageTitle.textContent = imageTitle;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeImageModal() {
+      document.getElementById('imageModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeImageModal();
+    });
   </script>
 </body>
 </html>
