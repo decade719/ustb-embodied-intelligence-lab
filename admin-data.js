@@ -7,7 +7,7 @@ const defaultMembers = [
     name: '张桃红',
     title: '教授',
     role: '实验室负责人',
-    avatar: 'pictures/成员0.png',
+    avatar: 'pictures/成员0.webp',
     tags: ['具身智能', '机器人导航', '智能感知'],
     bio: '实验室创始人与学术带头人，专注于具身智能、机器人导航与环境感知领域的前沿研究',
     order: 1
@@ -17,7 +17,7 @@ const defaultMembers = [
     name: '邢博文',
     title: '副教授',
     role: '学术顾问',
-    avatar: 'pictures/成员5.png',
+    avatar: 'pictures/成员5.webp',
     tags: ['大语言模型', '自然语言处理'],
     bio: '长期从事人工智能和自然语言处理的前沿研究，专注于基于大语言模型的异构语言信息处理及其在垂直领域的应用',
     order: 1.5
@@ -27,7 +27,7 @@ const defaultMembers = [
     name: '俞纯林',
     title: '博士',
     role: 'SLAM算法研究',
-    avatar: 'pictures/成员1.png',
+    avatar: 'pictures/成员1.webp',
     tags: ['SLAM算法', '视觉导航', '路径规划'],
     bio: '专注于SLAM算法研究与视觉导航系统开发，在多传感器融合定位方面有深入研究',
     order: 2
@@ -37,7 +37,7 @@ const defaultMembers = [
     name: '王浩宇',
     title: '博士',
     role: '深度学习研究',
-    avatar: 'pictures/成员2.png',
+    avatar: 'pictures/成员2.webp',
     tags: ['深度学习', '环境感知', '智能避障'],
     bio: '研究方向为深度学习与环境感知，致力于提升机器人在复杂环境下的智能避障能力',
     order: 3
@@ -47,7 +47,7 @@ const defaultMembers = [
     name: '李博涛',
     title: '硕士研究生',
     role: '机器学习研究',
-    avatar: 'pictures/成员3.png',
+    avatar: 'pictures/成员3.webp',
     tags: ['机器学习', '数据分析'],
     bio: '机器学习与数据分析方向研究者，专注于智能算法在机器人系统中的应用',
     order: 4
@@ -57,7 +57,7 @@ const defaultMembers = [
     name: '夏成龙',
     title: '硕士研究生',
     role: '嵌入式开发',
-    avatar: 'pictures/成员4.png',
+    avatar: 'pictures/成员4.webp',
     tags: ['嵌入式系统', '硬件开发'],
     bio: '嵌入式系统与硬件集成方向研究者，专注于机器人底层控制与硬件开发',
     order: 5
@@ -67,7 +67,7 @@ const defaultMembers = [
     name: '许龙龙',
     title: '硕士研究生',
     role: '图像处理',
-    avatar: 'pictures/成员7.png',
+    avatar: 'pictures/成员7.webp',
     tags: ['图像处理', '粗糙度检测'],
     bio: '图像处理与特征提取方向研究者，专注于工业视觉检测',
     order: 8
@@ -77,7 +77,7 @@ const defaultMembers = [
     name: '朱状状',
     title: '硕士研究生',
     role: '系统测试',
-    avatar: 'pictures/成员8.png',
+    avatar: 'pictures/成员8.webp',
     tags: ['云平台', '数据管理'],
     bio: '系统测试与质量保障方向研究者，专注于机器人系统可靠性',
     order: 9
@@ -87,7 +87,7 @@ const defaultMembers = [
     name: '甘语桐',
     title: '硕士研究生',
     role: '前端开发',
-    avatar: 'pictures/成员9.png',
+    avatar: 'pictures/成员9.webp',
     tags: ['前端开发', 'UI/UX设计'],
     bio: 'Web开发与人机交互界面设计方向研究者',
     order: 10
@@ -150,14 +150,14 @@ class DataManager {
 
     // 头像映射：将在线头像替换为本地头像
     const avatarMap = {
-      'xingbowen': 'pictures/成员5.png',
-      'yuchunlin': 'pictures/成员1.png',
-      'wanghaoyu': 'pictures/成员2.png',
-      'libotao': 'pictures/成员3.png',
-      'xiachenglong': 'pictures/成员4.png',
-      'xulonglong': 'pictures/成员7.png',
-      'zhuzhuangzhuang': 'pictures/成员8.png',
-      'ganyutong': 'pictures/成员9.png'
+      'xingbowen': 'pictures/成员5.webp',
+      'yuchunlin': 'pictures/成员1.webp',
+      'wanghaoyu': 'pictures/成员2.webp',
+      'libotao': 'pictures/成员3.webp',
+      'xiachenglong': 'pictures/成员4.webp',
+      'xulonglong': 'pictures/成员7.webp',
+      'zhuzhuangzhuang': 'pictures/成员8.webp',
+      'ganyutong': 'pictures/成员9.webp'
     };
 
     // 更新成员头像的函数（强制更新）
@@ -221,14 +221,14 @@ class DataManager {
     
     // 头像映射
     const avatarMap = {
-      'xingbowen': 'pictures/成员5.png',
-      'yuchunlin': 'pictures/成员1.png',
-      'wanghaoyu': 'pictures/成员2.png',
-      'libotao': 'pictures/成员3.png',
-      'xiachenglong': 'pictures/成员4.png',
-      'xulonglong': 'pictures/成员7.png',
-      'zhuzhuangzhuang': 'pictures/成员8.png',
-      'ganyutong': 'pictures/成员9.png'
+      'xingbowen': 'pictures/成员5.webp',
+      'yuchunlin': 'pictures/成员1.webp',
+      'wanghaoyu': 'pictures/成员2.webp',
+      'libotao': 'pictures/成员3.webp',
+      'xiachenglong': 'pictures/成员4.webp',
+      'xulonglong': 'pictures/成员7.webp',
+      'zhuzhuangzhuang': 'pictures/成员8.webp',
+      'ganyutong': 'pictures/成员9.webp'
     };
     
     // 更新头像并过滤

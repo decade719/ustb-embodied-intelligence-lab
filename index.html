@@ -2,540 +2,34 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="format-detection" content="telephone=no" />
-  <title>实验室首页</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="北京科技大学具身智能实验室：具身感知、认知决策与运动规划、人机协作与体验，科研成果与团队合作门户。" />
+  <title>USTB具身智能实验室</title>
   <link rel="stylesheet" href="styles.css" />
-  
   <!-- 预加载首屏关键图片 -->
-  <link rel="preload" as="image" href="pictures/具身智能.jpg" />
-  <link rel="preload" as="image" href="pictures/成员0.png" />
-  
-  <!-- 布局一致性保障脚本 -->
-  <script>
-    // 强制确保布局一致性，防止浏览器自动调整
-    (function() {
-      // 存储原始字体大小映射
-      const originalFontSizes = new Map();
-      let isInitialized = false;
-      
-      // 立即设置基础样式，不等待DOM加载
-      if (document.documentElement) {
-        document.documentElement.style.fontSize = '16px';
-        document.documentElement.style.setProperty('font-size', '16px', 'important');
-        document.documentElement.style.textSizeAdjust = '100%';
-        document.documentElement.style.setProperty('-webkit-text-size-adjust', '100%', 'important');
-        document.documentElement.style.setProperty('-moz-text-size-adjust', '100%', 'important');
-        document.documentElement.style.setProperty('-ms-text-size-adjust', '100%', 'important');
-        document.documentElement.style.setProperty('text-size-adjust', '100%', 'important');
-      }
-      
-      let isEnforcing = false; // 防止递归调用
-      
-      // 字体大小强制函数（简化版，避免性能问题）
-      function enforceFontSize() {
-        // 防止递归调用和无限循环
-        if (isEnforcing) return;
-        isEnforcing = true;
-        
-        try {
-          // 强制设置根字体大小
-          if (document.documentElement) {
-            document.documentElement.style.fontSize = '16px';
-            document.documentElement.style.setProperty('font-size', '16px', 'important');
-            
-            // 禁用浏览器自动字体调整
-            document.documentElement.style.textSizeAdjust = '100%';
-            document.documentElement.style.setProperty('-webkit-text-size-adjust', '100%', 'important');
-            document.documentElement.style.setProperty('-moz-text-size-adjust', '100%', 'important');
-            document.documentElement.style.setProperty('-ms-text-size-adjust', '100%', 'important');
-            document.documentElement.style.setProperty('text-size-adjust', '100%', 'important');
-          }
-          
-          // 强制设置body字体大小
-          if (document.body) {
-            document.body.style.fontSize = '16px';
-            document.body.style.setProperty('font-size', '16px', 'important');
-          }
-        } catch (e) {
-          // 静默处理错误
-        } finally {
-          isEnforcing = false;
-        }
-      }
-      
-      // 初始化函数
-      function initialize() {
-        if (isInitialized) return;
-        isInitialized = true;
-        
-        // DOM加载后执行
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(enforceFontSize, 100);
-          });
-        } else {
-          setTimeout(enforceFontSize, 100);
-        }
-        
-        // 页面完全加载后再次执行
-        window.addEventListener('load', function() {
-          setTimeout(enforceFontSize, 200);
-        });
-        
-        // 定期检查并强制设置（防止浏览器动态调整）- 只在DOM准备好后，降低频率
-        // 暂时禁用定期检查，避免性能问题
-        // if (document.body) {
-        //   setTimeout(function() {
-        //     setInterval(enforceFontSize, 5000); // 改为5秒检查一次，减少性能开销
-        //   }, 1000);
-        // }
-      }
-      
-      // 延迟初始化，确保不阻塞页面渲染
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initialize);
-      } else {
-        setTimeout(initialize, 0);
-      }
-      
-      // 使用ResizeObserver监听元素大小变化，防止浏览器自动调整（已禁用，避免性能问题）
-      function setupResizeObserver() {
-        // 暂时禁用，避免性能问题
-        // if (window.ResizeObserver && document.body) {
-        //   try {
-        //     const resizeObserver = new ResizeObserver(function(entries) {
-        //       enforceFontSize();
-        //     });
-        //     resizeObserver.observe(document.body);
-        //     if (document.documentElement) {
-        //       resizeObserver.observe(document.documentElement);
-        //     }
-        //   } catch (e) {
-        //     // 静默处理错误
-        //   }
-        // }
-      }
-      
-      // 检测并抵消浏览器缩放（已禁用，避免性能问题）
-      function checkAndFixZoom() {
-        // 暂时禁用，避免频繁调用 getComputedStyle 导致性能问题
-        // try {
-        //   if (!document.documentElement || !document.body) return;
-        //   
-        //   const baseFontSize = 16;
-        //   const computedStyle = window.getComputedStyle(document.documentElement);
-        //   const actualFontSize = parseFloat(computedStyle.fontSize);
-        //   
-        //   if (isNaN(actualFontSize)) return;
-        //   
-        //   const zoomRatio = actualFontSize / baseFontSize;
-        //   
-        //   // 如果检测到缩放，使用CSS zoom来抵消
-        //   if (Math.abs(zoomRatio - 1) > 0.01) {
-        //     const inverseZoom = 1 / zoomRatio;
-        //     if (document.body) {
-        //       document.body.style.zoom = inverseZoom;
-        //     }
-        //     document.documentElement.style.zoom = inverseZoom;
-        //   } else {
-        //     if (document.body) {
-        //       document.body.style.zoom = '1';
-        //     }
-        //     document.documentElement.style.zoom = '1';
-        //   }
-        // } catch (e) {
-        //   // 静默处理错误
-        // }
-      }
-      
-      // 在初始化时设置监听器
-      function setupListeners() {
-        // 暂时禁用所有监听器，避免性能问题
-        // if (document.body) {
-        //   setTimeout(function() {
-        //     setInterval(checkAndFixZoom, 1000);
-        //     window.addEventListener('resize', checkAndFixZoom);
-        //     setupResizeObserver();
-        //   }, 500);
-        // }
-        
-        // 监听样式变化，防止浏览器自动调整（已禁用，避免无限循环）
-        // MutationObserver 会导致无限循环，暂时禁用
-        // if (document.documentElement) {
-        //   try {
-        //     const observer = new MutationObserver(function(mutations) {
-        //       mutations.forEach(function(mutation) {
-        //         if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-        //           enforceFontSize();
-        //         }
-        //       });
-        //     });
-        //     
-        //     observer.observe(document.documentElement, {
-        //       attributes: true,
-        //       attributeFilter: ['style']
-        //     });
-        //   } catch (e) {
-        //     // 静默处理错误
-        //   }
-        // }
-      }
-      
-      // 在初始化时设置监听器
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', setupListeners);
-      } else {
-        setTimeout(setupListeners, 0);
-      }
-      
-      // 防止用户通过快捷键缩放
-      document.addEventListener('keydown', function(e) {
-        if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '-' || e.key === '0' || e.key === '=' || e.keyCode === 187 || e.keyCode === 189 || e.keyCode === 48)) {
-          e.preventDefault();
-          e.stopPropagation();
-          return false;
-        }
-      }, true);
-      
-      // 防止鼠标滚轮缩放（改为 passive: false，但只在需要时阻止）
-      document.addEventListener('wheel', function(e) {
-        if (e.ctrlKey || e.metaKey) {
-          e.preventDefault();
-          e.stopPropagation();
-          return false;
-        }
-      }, { passive: false, capture: false });
-      
-      // 防止触摸缩放（移动端，改为 passive: false，但只在需要时阻止）
-      document.addEventListener('touchstart', function(e) {
-        if (e.touches.length > 1) {
-          e.preventDefault();
-        }
-      }, { passive: false });
-      
-      document.addEventListener('touchmove', function(e) {
-        if (e.touches.length > 1) {
-          e.preventDefault();
-        }
-      }, { passive: false });
-      
-      document.addEventListener('touchend', function(e) {
-        if (e.touches.length > 1) {
-          e.preventDefault();
-        }
-      }, { passive: false });
-    })();
-  </script>
-  
-  <!-- 图片加载优化脚本 -->
-  <script>
-    // 预加载关键成员图片（张桃红和邢博文）
-    (function() {
-      const keyImages = ['pictures/成员0.png', 'pictures/成员5.png'];
-      keyImages.forEach(src => {
-        const img = new Image();
-        img.src = src;
-        img.onload = function() {
-          console.log('关键成员图片预加载成功:', src);
-        };
-        img.onerror = function() {
-          console.error('关键成员图片预加载失败:', src);
-        };
-      });
-    })();
-    
-    // 图片懒加载和优化
-    document.addEventListener('DOMContentLoaded', function() {
-      // 确保关键成员（张桃红和邢博文）的图片立即加载（不懒加载）
-      const keyImages = document.querySelectorAll('img[src*="成员0.png"], img[src*="成员5.png"]');
-      keyImages.forEach(img => {
-        img.setAttribute('loading', 'eager');
-        // 强制加载
-        if (!img.complete) {
-          const newImg = new Image();
-          newImg.src = img.src;
-          newImg.onload = function() {
-            img.src = newImg.src;
-          };
-        }
-      });
-      
-      // 为其他图片添加懒加载（如果还没有）
-      const images = document.querySelectorAll('img:not([src*="成员0.png"]):not([src*="成员5.png"]):not([loading])');
-      images.forEach(img => {
-        if (!img.hasAttribute('loading')) {
-          img.setAttribute('loading', 'lazy');
-        }
-        // 添加占位符背景
-        if (!img.style.backgroundColor && !img.closest('.hero-section')) {
-          img.style.backgroundColor = '#f0f0f0';
-        }
-      });
-      
-      // 预加载即将进入视口的图片
-      const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            if (img.dataset.src) {
-              img.src = img.dataset.src;
-              img.removeAttribute('data-src');
-            }
-            observer.unobserve(img);
-          }
-        });
-      }, {
-        rootMargin: '50px' // 提前50px开始加载
-      });
-      
-      // 观察所有图片
-      document.querySelectorAll('img[data-src]').forEach(img => {
-        imageObserver.observe(img);
-      });
-    });
-    
-    // 背景图片预加载
-    function preloadBackgroundImage(url) {
-      const img = new Image();
-      img.src = url;
-    }
-    
-    // 预加载首屏背景图和关键成员图片
-    window.addEventListener('load', function() {
-      preloadBackgroundImage('pictures/具身智能.jpg');
-      preloadBackgroundImage('pictures/成员0.png');
-      preloadBackgroundImage('pictures/成员5.png');
-    });
-  </script>
-  
-  <style>
-    /* 全屏滚动样式 */
-    html, body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      height: 100%;
-    }
-    
-    #fullpage-wrapper {
-      height: calc(100vh - 64px);
-      overflow-y: scroll;
-      scroll-snap-type: y mandatory;
-      scroll-behavior: smooth;
-      margin-top: 0;
-    }
-    
-    .fp-section {
-      min-height: calc(100vh - 64px);
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
-      position: relative;
-      overflow: visible;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .fp-section .container {
-      width: 100%;
-      max-width: 1400px;
-      padding: 60px 20px;
-    }
-    
-    /* 导航点样式 */
-    .fp-nav {
-      position: fixed;
-      right: 30px;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 9999;
-    }
-    
-    .fp-nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    
-    .fp-nav li {
-      position: relative;
-    }
-    
-    .fp-nav a {
-      display: block;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.5);
-      border: 2px solid rgba(102,126,234,0.8);
-      transition: all 0.3s;
-      cursor: pointer;
-      position: relative;
-    }
-    
-    .fp-nav a:hover,
-    .fp-nav a.active {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      transform: scale(1.4);
-      box-shadow: 0 0 20px rgba(102,126,234,0.6);
-    }
-    
-    .fp-nav .fp-tooltip {
-      position: absolute;
-      right: 32px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0,0,0,0.85);
-      color: white;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.3s;
-    }
-    
-    .fp-nav li:hover .fp-tooltip {
-      opacity: 1;
-      transform: translateY(-50%) translateX(-8px);
-    }
-    
-    /* Hero sections 特殊样式 */
-    .hero-section {
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-    }
-    
-    .fp-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%);
-    }
-    
-    .fp-label {
-      position: relative;
-      z-index: 10;
-      text-align: center;
-      color: white;
-    }
-    
-    .fp-label h2 {
-      font-size: 72px;
-      font-weight: 900;
-      margin-bottom: 24px;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.6);
-      letter-spacing: -1px;
-    }
-    
-    .fp-label p {
-      font-size: 28px;
-      font-weight: 500;
-      opacity: 0.95;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    }
-    
-    /* 案例区全屏适配 */
-    #cases-section {
-      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 50%, #f0f9ff 100%);
-    }
-    
-    /* 成员区全屏适配 */
-    #members-section {
-      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-    }
-    
-    /* 合作伙伴区全屏适配 */
-    #partners-section {
-      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fef3c7 100%);
-    }
-    
-    /* Footer 适配 */
-    .footer-section {
-      background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
-      color: white;
-    }
-    
-    /* 响应式调整 */
-    @media (max-width: 768px) {
-      .fp-nav {
-        right: 15px;
-      }
-      
-      .fp-nav a {
-        width: 10px;
-        height: 10px;
-      }
-      
-      .fp-section .container {
-        padding: 40px 15px;
-      }
-      
-      .fp-label h2 {
-        font-size: 48px;
-      }
-      
-      .fp-label p {
-        font-size: 20px;
-      }
-    }
-    
-    /* 成员滚动条样式 */
-    .members-scroll::-webkit-scrollbar {
-      height: 12px;
-    }
-    
-    .members-scroll::-webkit-scrollbar-track {
-      background: rgba(96,165,250,0.1);
-      border-radius: 10px;
-      margin: 0 20px;
-    }
-    
-    .members-scroll::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-      border-radius: 10px;
-      border: 2px solid rgba(255,255,255,0.3);
-    }
-    
-    .members-scroll::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-    }
-    
-    /* Pulse 动画 */
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-    }
-    
-  </style>
+  <link rel="preload" as="image" href="pictures/具身智能.webp" />
 </head>
-<body class="theme-huaqin">
-  <header class="site-header theme-huaqin" style="position: relative; width: 100%; z-index: 10000;">
+<body class="theme-huaqin grain">
+
+  <!-- 全站氛围光斑 -->
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <header class="site-header theme-huaqin">
     <div class="container">
       <a class="logo" href="index.html" data-i18n="nav.brand">USTB具身智能实验室</a>
       <nav class="nav" id="mainNav">
-        <button class="nav-toggle" aria-label="toggle menu" onclick="document.getElementById('mainNav').dataset.open = document.getElementById('mainNav').dataset.open === 'true' ? 'false' : 'true'">
+        <button class="nav-toggle" aria-label="打开菜单" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
         <ul class="nav-list">
-          <li><a href="index.html" data-i18n="nav.home">首页</a></li>
+          <li><a href="index.html" class="active" data-i18n="nav.home">首页</a></li>
           <li><a href="cases.html" data-i18n="cases_title">科研成果</a></li>
           <li><a href="members.html" data-i18n="members_title">成员介绍</a></li>
           <li><a href="partners.html" data-i18n="partners_title">合作伙伴</a></li>
           <li><a href="#contact" data-i18n="nav.contact">联系方式</a></li>
         </ul>
         <div class="tools">
-          <select id="langSwitcher" aria-label="language">
+          <select id="langSwitcher" aria-label="语言切换">
             <option value="zh-CN">简体中文</option>
             <option value="zh-HK">繁體中文</option>
             <option value="en">English</option>
@@ -547,329 +41,218 @@
   </header>
 
   <!-- 全屏滚动容器 -->
-  <div id="fullpage-wrapper">
-    
-    <!-- Hero Section：具身智能实验室 -->
-    <section class="fp-section hero-section" id="hero" data-anchor="hero" style="background-image:url('pictures/具身智能.jpg'); background-size: cover; background-position: center; background-attachment: fixed; margin-top: 0;">
-      <div class="fp-overlay" style="background: linear-gradient(135deg, rgba(15,23,42,0.9) 0%, rgba(7,89,133,0.6) 100%);"></div>
-      <div class="fp-label" style="max-width: 860px; margin: 0 auto;">
-        <h1 style="font-size: 60px; margin-bottom: 16px;">USTB 具身智能实验室</h1>
-        <p style="font-size: 22px; margin-bottom: 32px;">专注具身智能理论、机器人系统与跨学科应用，形成"科研成果-成员协作-合作生态-开放联系"的一体化实验室门户</p>
-        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px;">
-          <a href="#cases-section" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border-radius: 40px; background: rgba(255,255,255,0.15); color: white; text-decoration: none; font-weight: 700;">🔎 科研成果</a>
-          <a href="#members-section" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border-radius: 40px; background: rgba(255,255,255,0.15); color: white; text-decoration: none; font-weight: 700;">👥 实验室成员</a>
-          <a href="#contact" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border-radius: 40px; background: rgba(255,255,255,0.15); color: white; text-decoration: none; font-weight: 700;">📬 联系方式</a>
+  <div id="fullpage-wrapper" class="fp-page">
+
+    <!-- Hero -->
+    <section class="fp-section hero-fp" id="hero" data-anchor="hero" style="background-image:url('pictures/具身智能.webp');">
+      <div class="fp-overlay"></div>
+      <div class="fp-label container">
+        <div class="hero-kicker">Embodied Intelligence Lab · USTB</div>
+        <h1 class="hero-title">USTB 具身智能实验室</h1>
+        <p class="hero-desc">专注具身智能理论、机器人系统与跨学科应用，形成“科研成果 — 成员协作 — 合作生态 — 开放联系”的一体化实验室门户。</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#cases-section">科研成果</a>
+          <a class="btn btn-ghost" href="#members-section">实验室成员</a>
+          <a class="btn btn-ghost" href="#contact">联系方式</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><b>6+</b><span>核心科研成果</span></div>
+          <div class="stat"><b>44</b><span>已培养研究生</span></div>
+          <div class="stat"><b>3</b><span>主要研究方向</span></div>
         </div>
       </div>
+      <div class="scroll-hint">Scroll</div>
     </section>
 
-    <!-- 研究方向速览 -->
-    <section class="fp-section" id="focus-section" data-anchor="focus" style="background: linear-gradient(135deg, #eef2ff 0%, #e0f2fe 45%, #ecfccb 100%);">
-      <div class="container" style="padding: 120px 20px 60px;">
-        <div style="text-align: center; margin-bottom: 40px;">
-          <div style="display: inline-block; background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%); color: white; padding: 8px 24px; border-radius: 24px; font-weight: 700;">研究方向</div>
-          <h2 style="font-size: 40px; color: #0f172a; margin: 16px 0 12px;">具身智能三大支柱</h2>
-          <p style="max-width: 900px; margin: 0 auto; color: #334155; font-size: 18px; line-height: 1.9;">
-            团队以“感知-认知-协作”闭环为核心：具身感知负责在复杂环境中捕获细粒度体感与视觉信息；
-            认知决策与运动规划将多模态数据、SLAM 与控制算法融合成可解释的动作策略；
-            人机协作与体验则面向医疗、工业和公共服务等场景，将算法落地为安全、可信的交互系统。
-            三者协同支撑科研成果、行业合作与开源生态，形成北京科技大学具身智能实验室的技术底盘。
-          </p>
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 24px;">
-          <div style="background: white; padding: 28px; border-radius: 20px; box-shadow: 0 15px 40px rgba(37,99,235,0.12);">
-            <h3 style="margin: 0 0 8px; color: #1d4ed8;">具身感知</h3>
-            <p style="margin: 0; color: #475569; line-height: 1.8;">
-              构建多模态视觉 / 触觉 / 语音融合传感体系，引入光场重建、事件相机与高精度 IMU，
-              让智能体获得纳米级表面感知、语义级场景理解与复杂人机语义对话能力。
-              相关技术已支撑粗糙度检测、缺陷识别与移动辅助等核心案例。
-            </p>
+    <!-- 研究方向 -->
+    <section class="fp-section" id="focus-section" data-anchor="focus">
+      <div class="container" style="text-align:center;">
+        <div class="eyebrow">Research Focus · 研究方向</div>
+        <h2 class="section-title" style="margin-top:18px;">具身智能三大支柱</h2>
+        <p class="section-sub">
+          团队以“感知 — 认知 — 协作”闭环为核心：具身感知负责在复杂环境中捕获细粒度体感与视觉信息；
+          认知决策与运动规划将多模态数据、SLAM 与控制算法融合成可解释的动作策略；
+          人机协作与体验则面向医疗、工业和公共服务等场景，将算法落地为安全、可信的交互系统。
+        </p>
+        <div class="pillar-grid">
+          <div class="card pillar cyan reveal">
+            <div class="p-ico">📡</div>
+            <h3>具身感知</h3>
+            <p>构建多模态视觉 / 触觉 / 语音融合传感体系，引入光场重建、事件相机与高精度 IMU，让智能体获得纳米级表面感知、语义级场景理解与复杂人机语义对话能力，支撑粗糙度检测、缺陷识别与移动辅助等核心案例。</p>
           </div>
-          <div style="background: white; padding: 28px; border-radius: 20px; box-shadow: 0 15px 40px rgba(5,150,105,0.12);">
-            <h3 style="margin: 0 0 8px; color: #047857;">认知决策与运动规划</h3>
-            <p style="margin: 0; color: #475569; line-height: 1.8;">
-              研究具身世界模型、决策闭环与 SLAM 导航，融合大规模预训练、强化学习与可解释控制，
-              具备自适应路径规划、语义避障、协作操作等能力，可根据场景自动切换运动模式并保证安全冗余。
-            </p>
+          <div class="card pillar violet reveal" style="--d:.12s">
+            <div class="p-ico">🧭</div>
+            <h3>认知决策与运动规划</h3>
+            <p>研究具身世界模型、决策闭环与 SLAM 导航，融合大规模预训练、强化学习与可解释控制，具备自适应路径规划、语义避障、协作操作等能力，可根据场景自动切换运动模式并保证安全冗余。</p>
           </div>
-          <div style="background: white; padding: 28px; border-radius: 20px; box-shadow: 0 15px 40px rgba(124,58,237,0.12);">
-            <h3 style="margin: 0 0 8px; color: #7c3aed;">人机协作与体验</h3>
-            <p style="margin: 0; color: #475569; line-height: 1.8;">
-              针对医疗康复、工业协作、公共服务等场景设计情感化交互与协同机制，
-              通过语音 / 手势 / 眼动等多通道输入实现自然对话、权限管控及多设备协同，
-              并结合用户研究与安全评估确保“可用、可信、有温度”的体验。
-            </p>
+          <div class="card pillar green reveal" style="--d:.24s">
+            <div class="p-ico">🤝</div>
+            <h3>人机协作与体验</h3>
+            <p>针对医疗康复、工业协作、公共服务等场景设计情感化交互与协同机制，通过语音 / 手势 / 眼动等多通道输入实现自然对话、权限管控及多设备协同，确保“可用、可信、有温度”的体验。</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 案例展示区 -->
-    <section class="fp-section" id="cases-section" data-anchor="cases" style="padding-top: 20px;">
-      <div class="container" style="padding: 0px 20px 40px;">
-        <h2 class="section-title" data-i18n="cases_title" style="text-align: center; margin-bottom: 10px; font-size: 32px; color: #1e40af;">科研成果</h2>
-        <p style="text-align: center; color: #60a5fa; font-size: 11px; margin-bottom: 20px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6;">精选项目落地与研究成果展示，体现技术可靠性与应用价值</p>
+    <!-- 科研成果 -->
+    <section class="fp-section" id="cases-section" data-anchor="cases">
+      <div class="container" style="text-align:center;">
+        <div class="eyebrow">Showcase · 成果展示</div>
+        <h2 class="section-title" data-i18n="cases_title" style="margin-top:18px;">科研成果</h2>
+        <p class="section-sub">精选项目落地与研究成果展示，体现技术可靠性与应用价值</p>
 
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1400px; margin: 0 auto;">
-          
-          <!-- 案例1: 粗糙度检测系统 -->
-          <a href="cases.html#case1" style="text-decoration: none; background: white; padding: 24px; border-radius: 16px; box-shadow: 0 4px 16px rgba(59,130,246,0.1); transition: all 0.3s; display: block; cursor: pointer;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(59,130,246,0.18)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 16px rgba(59,130,246,0.1)'">
-            <div style="display: inline-block; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 6px 16px; border-radius: 14px; font-size: 11px; font-weight: 700; margin-bottom: 12px;">
-              科研成果 1
-            </div>
-            <h3 style="font-size: 11px; color: #1e40af; margin-bottom: 12px; font-weight: 700;">基于视觉的粗糙度在线智能检测系统</h3>
-            <p style="color: #60a5fa; font-size: 11px; line-height: 1.6; margin-bottom: 12px;">纳米级粗糙度原位在线智能检测，实现工业生产中表面质量的实时监控与精准测量</p>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
-              <span style="background: #dbeafe; color: #1e40af; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600;">🔬 纳米级精度</span>
-              <span style="background: #dbeafe; color: #1e40af; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600;">⚡ 实时检测</span>
-              <span style="background: #dbeafe; color: #1e40af; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600;">🧠 AI分析</span>
-            </div>
-            <div style="border-top: 1px solid #dbeafe; padding-top: 12px;">
-              <div style="font-size: 11px; color: #3b82f6; margin-bottom: 6px;"><strong>技术亮点：</strong></div>
-              <ul style="margin: 0; padding-left: 20px; color: #60a5fa; font-size: 11px; line-height: 1.6;">
-                <li>纳米级高精度测量</li>
-                <li>快速实时检测</li>
-                <li>高准确率</li>
-              </ul>
-            </div>
-          </a>
-          
-          <!-- 案例2: 缺陷检测 -->
-          <a href="cases.html#case2" style="text-decoration: none; background: white; padding: 24px; border-radius: 16px; box-shadow: 0 4px 16px rgba(124,58,237,0.1); transition: all 0.3s; display: block; cursor: pointer;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(124,58,237,0.18)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 16px rgba(124,58,237,0.1)'">
-            <div style="display: inline-block; background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%); color: white; padding: 6px 16px; border-radius: 14px; font-size: 11px; font-weight: 700; margin-bottom: 12px;">
-              科研成果 2
-            </div>
-            <h3 style="font-size: 11px; color: #7c3aed; margin-bottom: 12px; font-weight: 700;">基于视觉的缺陷智能检测</h3>
-            <p style="color: #a78bfa; font-size: 11px; line-height: 1.6; margin-bottom: 12px;">多通道、多尺度、多特征融合的AI模型，实现复杂工业场景下的高精度缺陷检测</p>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
-              <span style="background: #f3e8ff; color: #7c3aed; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600;">🔍 多通道融合</span>
-              <span style="background: #f3e8ff; color: #7c3aed; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600;">📏 多尺度</span>
-              <span style="background: #f3e8ff; color: #7c3aed; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600;">🧩 特征融合</span>
-            </div>
-            <div style="border-top: 1px solid #f3e8ff; padding-top: 12px;">
-              <div style="font-size: 11px; color: #7c3aed; margin-bottom: 6px;"><strong>技术亮点：</strong></div>
-              <ul style="margin: 0; padding-left: 20px; color: #a78bfa; font-size: 11px; line-height: 1.6;">
-                <li>融合全局与局部特征</li>
-                <li>快速检测</li>
-                <li>高准确率</li>
-              </ul>
-            </div>
-          </a>
-    
-          <!-- 案例3: 分拣系统 -->
-          <a href="cases.html#case3" style="text-decoration: none; background: white; padding: 24px; border-radius: 16px; box-shadow: 0 4px 16px rgba(5,150,105,0.1); transition: all 0.3s; display: block; cursor: pointer;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(5,150,105,0.18)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 16px rgba(5,150,105,0.1)'">
-            <div style="display: inline-block; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 6px 16px; border-radius: 14px; font-size: 11px; font-weight: 700; margin-bottom: 12px;">
-              科研成果 3
-            </div>
-            <h3 style="font-size: 11px; color: #065f46; margin-bottom: 12px; font-weight: 700;">基于机器视觉的分拣系统</h3>
-            <p style="color: #059669; font-size: 11px; line-height: 1.6; margin-bottom: 12px;">基于深度学习的目标检测算法与混合特征提取网络（HFE-Net），实现高效精准的自动化分拣</p>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
-              <span style="background: #d1fae5; color: #065f46; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600;">⚡ 高速</span>
-              <span style="background: #d1fae5; color: #065f46; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600;">🎯 精准</span>
-              <span style="background: #d1fae5; color: #065f46; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600;">💰 降本增效</span>
-            </div>
-            <div style="border-top: 1px solid #d1fae5; padding-top: 12px;">
-              <div style="font-size: 11px; color: #10b981; margin-bottom: 6px;"><strong>应用优势：</strong></div>
-              <ul style="margin: 0; padding-left: 20px; color: #059669; font-size: 11px; line-height: 1.6;">
-                <li>高帧率处理</li>
-                <li>高识别准确率</li>
-                <li>ROI周期短</li>
-              </ul>
-            </div>
+        <div class="case-grid">
+          <a href="cases.html#case1" class="case-card t-blue reveal">
+            <span class="case-tag">科研成果 1</span>
+            <h3>基于视觉的粗糙度在线智能检测系统</h3>
+            <p class="case-desc">纳米级粗糙度原位在线智能检测，实现工业生产中表面质量的实时监控与精准测量</p>
+            <div class="chips"><span>纳米级精度</span><span>实时检测</span><span>AI 分析</span></div>
+            <div class="case-more"><b>技术亮点</b><ul><li>纳米级高精度测量</li><li>快速实时检测</li><li>高准确率</li></ul></div>
           </a>
 
-          <!-- 案例4: 智能导航轮椅 -->
-          <a href="cases.html#case4" style="text-decoration: none; background: white; padding: 24px; border-radius: 16px; box-shadow: 0 4px 16px rgba(59,130,246,0.1); transition: all 0.3s; display: block; cursor: pointer;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(59,130,246,0.18)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 16px rgba(59,130,246,0.1)'">
-            <div style="display: inline-block; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 6px 16px; border-radius: 14px; font-size: 11px; font-weight: 700; margin-bottom: 12px;">
-              科研成果 4
-            </div>
-            <h3 style="font-size: 11px; color: #1e40af; margin-bottom: 12px; font-weight: 700;">具身智能 - 智能导航轮椅</h3>
-            <p style="color: #60a5fa; font-size: 11px; line-height: 1.6; margin-bottom: 12px;">融合视觉深度学习、智能导航、语音交互等前沿技术，为行动不便人士提供安全、智能、有温度的出行解决方案</p>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
-              <span style="background: #dbeafe; color: #1e40af; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600;">🎯 智能导航</span>
-              <span style="background: #dbeafe; color: #1e40af; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600;">🏃 自动跟随</span>
-              <span style="background: #dbeafe; color: #1e40af; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600;">🎙️ 语音交互</span>
-              <span style="background: #dbeafe; color: #1e40af; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600;">🛡️ 自动避障</span>
-            </div>
-            <div style="border-top: 1px solid #dbeafe; padding-top: 12px;">
-              <div style="font-size: 11px; color: #3b82f6; margin-bottom: 6px;"><strong>应用成效：</strong></div>
-              <ul style="margin: 0; padding-left: 20px; color: #60a5fa; font-size: 11px; line-height: 1.6;">
-                <li>高避障成功率</li>
-                <li>室内外自主导航</li>
-                <li>高语音识别准确率</li>
-              </ul>
-            </div>
+          <a href="cases.html#case2" class="case-card t-violet reveal" style="--d:.08s">
+            <span class="case-tag">科研成果 2</span>
+            <h3>基于视觉的缺陷智能检测</h3>
+            <p class="case-desc">多通道、多尺度、多特征融合的 AI 模型，实现复杂工业场景下的高精度缺陷检测</p>
+            <div class="chips"><span>多通道融合</span><span>多尺度</span><span>特征融合</span></div>
+            <div class="case-more"><b>技术亮点</b><ul><li>融合全局与局部特征</li><li>快速检测</li><li>高准确率</li></ul></div>
           </a>
 
-          <!-- 案例5: 磨粒智能检测 -->
-          <a href="cases.html#case5" style="text-decoration: none; background: white; padding: 24px; border-radius: 16px; box-shadow: 0 4px 16px rgba(245,158,11,0.1); transition: all 0.3s; display: block; cursor: pointer;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(245,158,11,0.18)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 16px rgba(245,158,11,0.1)'">
-            <div style="display: inline-block; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; padding: 6px 16px; border-radius: 14px; font-size: 11px; font-weight: 700; margin-bottom: 12px;">
-              科研成果 5
-            </div>
-            <h3 style="font-size: 11px; color: #92400e; margin-bottom: 12px; font-weight: 700;">航空发动机油液磨粒智能检测与分析仪</h3>
-            <p style="color: #b45309; font-size: 11px; line-height: 1.6; margin-bottom: 12px;">基于视觉的磨粒智能检测，实现油液磨粒的自动识别与分析</p>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
-              <span style="background: #fef3c7; color: #92400e; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600;">🔍 智能检测</span>
-              <span style="background: #fef3c7; color: #92400e; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600;">📊 磨粒分析</span>
-              <span style="background: #fef3c7; color: #92400e; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600;">⚙️ 故障诊断</span>
-            </div>
-            <div style="border-top: 1px solid #fef3c7; padding-top: 12px;">
-              <div style="font-size: 11px; color: #f59e0b; margin-bottom: 6px;"><strong>核心功能：</strong></div>
-              <ul style="margin: 0; padding-left: 20px; color: #b45309; font-size: 11px; line-height: 1.6;">
-                <li>磨粒自动识别与分类</li>
-                <li>深度学习算法分析</li>
-                <li>ISO洁净度标准评估</li>
-              </ul>
-            </div>
+          <a href="cases.html#case3" class="case-card t-green reveal" style="--d:.16s">
+            <span class="case-tag">科研成果 3</span>
+            <h3>基于机器视觉的分拣系统</h3>
+            <p class="case-desc">基于深度学习的目标检测算法与混合特征提取网络（HFE-Net），实现高效精准的自动化分拣</p>
+            <div class="chips"><span>高速</span><span>精准</span><span>降本增效</span></div>
+            <div class="case-more"><b>应用优势</b><ul><li>高帧率处理</li><li>高识别准确率</li><li>ROI 周期短</li></ul></div>
           </a>
 
-          <!-- 案例6: 定制轮式具身智能大脑 -->
-          <a href="cases.html#case6" style="text-decoration: none; background: white; padding: 24px; border-radius: 16px; box-shadow: 0 4px 16px rgba(59,130,246,0.1); transition: all 0.3s; display: block; cursor: pointer;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(59,130,246,0.18)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 16px rgba(59,130,246,0.1)'">
-            <div style="display: inline-block; background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); color: white; padding: 6px 16px; border-radius: 14px; font-size: 11px; font-weight: 700; margin-bottom: 12px;">
-              科研成果 6
-            </div>
-            <h3 style="font-size: 11px; color: #0369a1; margin-bottom: 12px; font-weight: 700;">定制---轮式具身智能大脑</h3>
-            <p style="color: #0ea5e9; font-size: 11px; line-height: 1.6; margin-bottom: 12px;">自动驾驶轮式机器人-智能大脑定制，适配智能婴儿车、智能物流车</p>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
-              <span style="background: #e0f2fe; color: #0369a1; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600;">🚀 一键漫游</span>
-              <span style="background: #e0f2fe; color: #0369a1; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600;">🏃 跟随</span>
-              <span style="background: #e0f2fe; color: #0369a1; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600;">🗺️ 导航</span>
-            </div>
-            <div style="border-top: 1px solid #e0f2fe; padding-top: 12px;">
-              <div style="font-size: 11px; color: #0ea5e9; margin-bottom: 6px;"><strong>技术亮点：</strong></div>
-              <ul style="margin: 0; padding-left: 20px; color: #0284c7; font-size: 11px; line-height: 1.6;">
-                <li>基于视觉智能检测的自动避障</li>
-                <li>基于GPS和SLAM的室内外自主导航</li>
-                <li>基于大模型的语音智能交互、陪伴</li>
-              </ul>
-            </div>
+          <a href="cases.html#case4" class="case-card t-blue reveal">
+            <span class="case-tag">科研成果 4</span>
+            <h3>具身智能 · 智能导航轮椅</h3>
+            <p class="case-desc">融合视觉深度学习、智能导航、语音交互等前沿技术，为行动不便人士提供安全、智能、有温度的出行解决方案</p>
+            <div class="chips"><span>智能导航</span><span>自动跟随</span><span>语音交互</span><span>自动避障</span></div>
+            <div class="case-more"><b>应用成效</b><ul><li>高避障成功率</li><li>室内外自主导航</li><li>高语音识别准确率</li></ul></div>
           </a>
 
+          <a href="cases.html#case5" class="case-card t-gold reveal" style="--d:.08s">
+            <span class="case-tag">科研成果 5</span>
+            <h3>航空发动机油液磨粒智能检测与分析仪</h3>
+            <p class="case-desc">基于视觉的磨粒智能检测，实现油液磨粒的自动识别与分析</p>
+            <div class="chips"><span>智能检测</span><span>磨粒分析</span><span>故障诊断</span></div>
+            <div class="case-more"><b>核心功能</b><ul><li>磨粒自动识别与分类</li><li>深度学习算法分析</li><li>ISO 洁净度标准评估</li></ul></div>
+          </a>
+
+          <a href="cases.html#case6" class="case-card t-sky reveal" style="--d:.16s">
+            <span class="case-tag">科研成果 6</span>
+            <h3>定制 · 轮式具身智能大脑</h3>
+            <p class="case-desc">自动驾驶轮式机器人智能大脑定制，适配智能婴儿车、智能物流车</p>
+            <div class="chips"><span>一键漫游</span><span>跟随</span><span>导航</span></div>
+            <div class="case-more"><b>技术亮点</b><ul><li>基于视觉智能检测的自动避障</li><li>基于 GPS 和 SLAM 的室内外自主导航</li><li>基于大模型的语音智能交互与陪伴</li></ul></div>
+          </a>
         </div>
+      </div>
+    </section>
 
-    </div>
-  </section>
-
-    <!-- 团队成员区 -->
+    <!-- 团队成员 -->
     <section class="fp-section" id="members-section" data-anchor="members">
-    <div class="container" style="padding: 42px 24px 36px; max-height: 100%; overflow-y: auto;">
-      <div style="text-align: center; margin-bottom: 38px;">
-          <h2 class="section-title" data-i18n="members_title" style="font-size: 43px; color: #1e40af; margin-bottom: 14px;">团队成员</h2>
-          <p style="color: #60a5fa; font-size: 19px; max-width: 780px; margin: 0 auto; line-height: 1.5;">汇聚顶尖人才，推动具身智能与机器人技术创新</p>
-          <p style="color: #3b82f6; font-size: 17px; margin-top: 8px; font-weight: 600;">已培养研究生44人</p>
-      </div>
-      
-        <div class="members-scroll" style="display: flex; gap: 24px; overflow-x: auto; padding: 19px 0; scroll-behavior: smooth; max-width: 1920px; margin: 0 auto;">
-        <!-- 成员卡片将通过 dynamic-content-loader.js 动态加载 -->
-        
-        <!-- 张桃红 - 教授 -->
-          <article class="card" onclick="window.location.href='member-profile.html?id=zhangtaohong'" style="min-width: 360px; min-height: 408px; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 4px solid #f59e0b; padding: 22px; position: relative; flex-shrink: 0; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='translateY(0)'">
-          <div style="position: absolute; top: 14px; right: 14px; background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); color: white; padding: 7px 17px; border-radius: 19px; font-size: 13px; font-weight: 700; z-index: 2; box-shadow: 0 5px 14px rgba(220,38,38,0.4);">
-            👨‍🏫 教授
-          </div>
-            <div class="card-media" style="height: 240px; margin-bottom: 17px;"><img src="pictures/成员0.png" alt="张桃红" loading="eager" style="background: #f59e0b; width: 100%; height: 100%; object-fit: cover; border-radius: 14px;"></div>
-            <h3 style="color: #92400e; font-weight: 700; font-size: 22px; margin-bottom: 7px; text-align: center; margin-top: 42px;">张桃红</h3>
-            <p style="color: #78350f; font-size: 17px; text-align: center;"></p>
-        </article>
-        
-        <!-- 俞纯林 - 博士 -->
-          <article class="card" style="min-width: 360px; min-height: 408px; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 2px solid #93c5fd; padding: 22px; position: relative; flex-shrink: 0; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='translateY(0)'">
-          <div style="position: absolute; top: 14px; right: 14px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 7px 17px; border-radius: 19px; font-size: 13px; font-weight: 700; z-index: 2;">
-            🎓 博士
-          </div>
-            <div class="card-media" style="height: 240px; margin-bottom: 17px;"><img src="pictures/成员1.png" alt="俞纯林" loading="lazy" style="background: #3b82f6; width: 100%; height: 100%; object-fit: cover; border-radius: 14px;"></div>
-            <h3 style="color: #1e40af; font-weight: 700; font-size: 22px; margin-bottom: 7px; text-align: center; margin-top: 42px;">俞纯林</h3>
-            <p style="color: #1e3a8a; font-size: 17px; text-align: center;"></p>
-        </article>
-        
-        <!-- 王浩宇 - 博士 -->
-          <article class="card" style="min-width: 360px; min-height: 408px; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 2px solid #93c5fd; padding: 22px; position: relative; flex-shrink: 0; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='translateY(0)'">
-          <div style="position: absolute; top: 14px; right: 14px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 7px 17px; border-radius: 19px; font-size: 13px; font-weight: 700; z-index: 2;">
-            🎓 博士
-          </div>
-            <div class="card-media" style="height: 240px; margin-bottom: 17px;"><img src="pictures/成员2.png" alt="王浩宇" loading="lazy" style="background: #2563eb; width: 100%; height: 100%; object-fit: cover; border-radius: 14px;"></div>
-            <h3 style="color: #1e40af; font-weight: 700; font-size: 22px; margin-bottom: 7px; text-align: center; margin-top: 42px;">王浩宇</h3>
-            <p style="color: #1e3a8a; font-size: 17px; text-align: center;"></p>
-        </article>
-        
-          <!-- 硕士生成员 -->
-          <article class="card" style="min-width: 360px; min-height: 408px; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 2px solid #a7f3d0; padding: 22px; position: relative; flex-shrink: 0; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='translateY(0)'">
-            <div style="position: absolute; top: 14px; right: 14px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 7px 17px; border-radius: 19px; font-size: 13px; font-weight: 700; z-index: 2;">📚 硕士</div>
-            <div class="card-media" style="height: 240px; margin-bottom: 17px;"><img src="pictures/成员3.png" alt="李博涛" loading="lazy" style="background: #10b981; width: 100%; height: 100%; object-fit: cover; border-radius: 14px;"></div>
-            <h3 style="color: #065f46; font-weight: 700; font-size: 22px; margin-bottom: 7px; text-align: center; margin-top: 42px;">李博涛</h3>
-            <p style="color: #047857; font-size: 17px; text-align: center;"></p>
-        </article>
-        
-          <article class="card" style="min-width: 360px; min-height: 408px; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 2px solid #a7f3d0; padding: 22px; position: relative; flex-shrink: 0; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='translateY(0)'">
-            <div style="position: absolute; top: 14px; right: 14px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 7px 17px; border-radius: 19px; font-size: 13px; font-weight: 700; z-index: 2;">📚 硕士</div>
-            <div class="card-media" style="height: 240px; margin-bottom: 17px;"><img src="pictures/成员4.png" alt="夏成龙" loading="lazy" style="background: #059669; width: 100%; height: 100%; object-fit: cover; border-radius: 14px;"></div>
-            <h3 style="color: #065f46; font-weight: 700; font-size: 22px; margin-bottom: 7px; text-align: center; margin-top: 42px;">夏成龙</h3>
-            <p style="color: #047857; font-size: 17px; text-align: center;"></p>
-        </article>
-      </div>
-      
-      <!-- 查看详情按钮 -->
-      <div style="text-align: center; margin-top: 34px;">
-        <a href="members.html" style="display: inline-block; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 14px 43px; border-radius: 60px; font-size: 18px; font-weight: 700; text-decoration: none; box-shadow: 0 10px 29px rgba(59,130,246,0.3); transition: all 0.3s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 14px 38px rgba(59,130,246,0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 29px rgba(59,130,246,0.3)'">
-          查看团队详情 →
-        </a>
-      </div>
-    </div>
-  </section>
+      <div class="container" style="text-align:center;">
+        <div class="eyebrow">Team · 团队成员</div>
+        <h2 class="section-title" data-i18n="members_title" style="margin-top:18px;">团队成员</h2>
+        <p class="section-sub">汇聚顶尖人才，推动具身智能与机器人技术创新 · 已培养研究生 44 人</p>
 
-    <!-- 合作伙伴区 -->
+        <div class="members-scroll" style="max-width:1400px; margin:0 auto; text-align:left;">
+          <!-- 张桃红 - 教授（静态保留，供动态加载识别） -->
+          <article class="m-card gold clickable reveal" onclick="window.location.href='member-profile.html?id=zhangtaohong'">
+            <span class="m-badge">教授</span>
+            <div class="m-photo"><img src="pictures/成员0.webp" alt="张桃红" loading="eager"></div>
+            <h3>张桃红</h3>
+            <p class="m-role">实验室负责人 · Professor</p>
+          </article>
+
+          <article class="m-card blue reveal" style="--d:.06s">
+            <span class="m-badge">博士</span>
+            <div class="m-photo"><img src="pictures/成员1.webp" alt="俞纯林" loading="lazy"></div>
+            <h3>俞纯林</h3>
+            <p class="m-role">Ph.D. Candidate</p>
+          </article>
+
+          <article class="m-card blue reveal" style="--d:.12s">
+            <span class="m-badge">博士</span>
+            <div class="m-photo"><img src="pictures/成员2.webp" alt="王浩宇" loading="lazy"></div>
+            <h3>王浩宇</h3>
+            <p class="m-role">Ph.D. Candidate</p>
+          </article>
+
+          <article class="m-card green reveal" style="--d:.18s">
+            <span class="m-badge">硕士</span>
+            <div class="m-photo"><img src="pictures/成员3.webp" alt="李博涛" loading="lazy"></div>
+            <h3>李博涛</h3>
+            <p class="m-role">M.S. Candidate</p>
+          </article>
+
+          <article class="m-card green reveal" style="--d:.24s">
+            <span class="m-badge">硕士</span>
+            <div class="m-photo"><img src="pictures/成员4.webp" alt="夏成龙" loading="lazy"></div>
+            <h3>夏成龙</h3>
+            <p class="m-role">M.S. Candidate</p>
+          </article>
+        </div>
+
+        <a class="btn btn-primary" href="members.html" style="margin-top:26px;">查看团队详情 →</a>
+      </div>
+    </section>
+
+    <!-- 合作伙伴 -->
     <section class="fp-section" id="partners-section" data-anchor="partners">
-    <div class="container" style="padding: 120px 20px 60px;">
-        <h2 class="section-title" data-i18n="partners_title" style="text-align: center; margin-bottom: 60px; font-size: 42px; color: #92400e;">合作伙伴</h2>
-        <div class="grid pain-grid" style="display: flex; justify-content: center; max-width: 1200px; margin: 0 auto;">
-          <div class="card" style="background: white; padding: 32px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); transition: all 0.3s; max-width: 400px; width: 100%;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 15px 50px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 40px rgba(0,0,0,0.1)'">
-            <div class="card-media" style="margin-bottom: 24px;"><img src="pictures/29.png" alt="深维科技公司" loading="lazy" referrerpolicy="no-referrer" style="width: 100%; border-radius: 12px;"></div>
-            <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 12px; color: #1f2937;">深维科技公司</h3>
-            <p style="color: #6b7280; line-height: 1.7;">技术合作与产业应用，共同推进具身智能技术发展。</p>
+      <div class="container" style="text-align:center;">
+        <div class="eyebrow">Partners · 合作生态</div>
+        <h2 class="section-title" data-i18n="partners_title" style="margin-top:18px;">合作伙伴</h2>
+        <div class="card partner-card reveal">
+          <div class="partner-logo"><img src="pictures/29.webp" alt="深维科技公司" loading="lazy"></div>
+          <div>
+            <h3>深维科技公司</h3>
+            <p>技术合作与产业应用，共同推进具身智能技术发展。</p>
           </div>
         </div>
-        </div>
+      </div>
     </section>
 
     <!-- 联系方式 -->
-    <section class="fp-section" id="contact" data-anchor="contact" style="background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #312e81 100%);">
-      <div class="container" style="text-align: center; color: white; padding: 140px 20px 80px;">
-        <h2 style="font-size: 40px; margin-bottom: 16px;">与 USTB 具身智能实验室合作</h2>
-        <p style="font-size: 18px; max-width: 780px; margin: 0 auto 32px; line-height: 1.9; color: rgba(255,255,255,0.85);">
-          无论是深入了解科研成果、共建实验场景，还是产学研合作，我们都期待与您对话。
-        </p>
-        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-bottom: 32px;">
-          <div style="min-width: 220px; background: rgba(15,23,42,0.5); border-radius: 16px; padding: 16px 24px;">
-            <div style="font-size: 14px; color: rgba(255,255,255,0.7);">邮箱</div>
-            <div style="font-size: 20px; font-weight: 700;">zth_ustb@163.com</div>
+    <section class="fp-section" id="contact" data-anchor="contact">
+      <div class="container" style="text-align:center;">
+        <div class="eyebrow">Contact · 开放合作</div>
+        <h2 class="section-title" style="margin-top:18px;">与 USTB 具身智能实验室合作</h2>
+        <p class="section-sub">无论是深入了解科研成果、共建实验场景，还是产学研合作，我们都期待与您对话。</p>
+        <div class="contact-grid">
+          <div class="contact-item reveal">
+            <div class="c-label">Email · 邮箱</div>
+            <div class="c-value">zth_ustb@163.com</div>
           </div>
-          <div style="min-width: 220px; background: rgba(15,23,42,0.5); border-radius: 16px; padding: 16px 24px;">
-            <div style="font-size: 14px; color: rgba(255,255,255,0.7);">电话</div>
-            <div style="font-size: 20px; font-weight: 700;">18811782873</div>
+          <div class="contact-item reveal" style="--d:.08s">
+            <div class="c-label">Phone · 电话</div>
+            <div class="c-value">18811782873</div>
           </div>
-          <div style="min-width: 220px; background: rgba(15,23,42,0.5); border-radius: 16px; padding: 16px 24px;">
-            <div style="font-size: 14px; color: rgba(255,255,255,0.7);">地址</div>
-            <div style="font-size: 20px; font-weight: 700;">北京科技大学机电楼</div>
+          <div class="contact-item reveal" style="--d:.16s">
+            <div class="c-label">Address · 地址</div>
+            <div class="c-value">北京科技大学机电楼</div>
           </div>
         </div>
-        <a href="contact.html" style="display: inline-block; padding: 16px 42px; border-radius: 50px; background: white; color: #0f172a; font-weight: 800; text-decoration: none; font-size: 18px;">
-          前往联系方式页面 →
-        </a>
+        <a class="btn btn-primary" href="contact.html">前往联系方式页面 →</a>
       </div>
     </section>
 
     <!-- Footer -->
     <section class="fp-section footer-section" data-anchor="footer">
-      <div class="container" style="text-align: center;">
-        <p class="muted" data-i18n="footer_copy" style="font-size: 16px; opacity: 0.8; margin: 0;">北京科技大学具身智能实验室</p>
+      <div class="container">
+        <p class="muted" data-i18n="footer_copy">北京科技大学具身智能实验室</p>
         <div class="footer-actions">
           <a class="footer-btn" href="contact.html"><span class="icon">📞</span><span data-i18n="footer.contact">联系我们</span></a>
           <a class="footer-btn" href="partners.html"><span class="icon">🤝</span><span data-i18n="footer.partners">合作伙伴</span></a>
         </div>
-    </div>
-  </section>
+      </div>
+    </section>
 
-    </div>
+  </div>
 
   <!-- 右侧导航点 -->
   <nav class="fp-nav" role="navigation" aria-label="页面导航">
@@ -877,175 +260,53 @@
   </nav>
 
   <script src="script.js"></script>
-  
+
   <script>
-    // 强制全屏滚动脚本
-    (function() {
-      const wrapper = document.getElementById('fullpage-wrapper');
-      const sections = document.querySelectorAll('.fp-section');
-      const navList = document.getElementById('fp-nav-list');
-      
-      let currentIndex = 0;
-      let isScrolling = false;
-      let touchStartY = 0;
-      
-      // Section names for navigation tooltips
-      const sectionNames = [
-        '实验室概览',
-        '研究方向',
-        '科研成果',
-        '成员介绍',
-        '合作伙伴',
-        '联系方式',
-        '页脚'
-      ];
-      
-      // Create navigation dots
-      sections.forEach((section, index) => {
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-        const tooltip = document.createElement('span');
-        
-        tooltip.className = 'fp-tooltip';
-        tooltip.textContent = sectionNames[index] || `Section ${index + 1}`;
-        
+    // 全屏滚动：导航点 + 原生 scroll-snap（不劫持滚轮，移动端体验更好）
+    (function () {
+      var wrapper = document.getElementById('fullpage-wrapper');
+      var sections = wrapper ? wrapper.querySelectorAll('.fp-section') : [];
+      var navList = document.getElementById('fp-nav-list');
+      if (!wrapper || !navList || !sections.length) return;
+
+      var names = ['实验室概览', '研究方向', '科研成果', '成员介绍', '合作伙伴', '联系方式', '页脚'];
+      var items = [];
+
+      sections.forEach(function (section, index) {
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        var tip = document.createElement('span');
+        tip.className = 'fp-tooltip';
+        tip.textContent = names[index] || ('第 ' + (index + 1) + ' 屏');
         a.href = '#';
-        a.onclick = (e) => {
+        a.setAttribute('aria-label', tip.textContent);
+        a.addEventListener('click', function (e) {
           e.preventDefault();
-          scrollToSection(index);
-        };
-        
-        li.appendChild(tooltip);
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        li.appendChild(tip);
         li.appendChild(a);
         navList.appendChild(li);
+        items.push(a);
       });
-      
-      const navItems = navList.querySelectorAll('a');
-      
-      function scrollToSection(index) {
-        if (index < 0 || index >= sections.length || isScrolling) return;
-        
-        isScrolling = true;
-        currentIndex = index;
-        
-        sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
-        
-        // Update navigation
-        navItems.forEach(item => item.classList.remove('active'));
-        navItems[index].classList.add('active');
-        
-        setTimeout(() => {
-          isScrolling = false;
-        }, 800);
-      }
-      
-      // Mouse wheel event（优化，避免阻塞）
-      let wheelTimeout;
-      let lastWheelTime = 0;
-      wrapper.addEventListener('wheel', (e) => {
-        // 节流：限制处理频率
-        const now = Date.now();
-        if (now - lastWheelTime < 100) {
-          return;
-        }
-        lastWheelTime = now;
-        
-        if (isScrolling) {
-          e.preventDefault();
-          return;
-        }
-        
-        clearTimeout(wheelTimeout);
-        wheelTimeout = setTimeout(() => {
-          if (e.deltaY > 30) { // Scroll down
-            if (currentIndex < sections.length - 1) {
-              scrollToSection(currentIndex + 1);
-            }
-          } else if (e.deltaY < -30) { // Scroll up
-            if (currentIndex > 0) {
-              scrollToSection(currentIndex - 1);
-            }
-          }
-        }, 50);
-      }, { passive: false });
-      
-      // Touch events for mobile
-      wrapper.addEventListener('touchstart', (e) => {
-        touchStartY = e.touches[0].clientY;
-      }, { passive: true });
-      
-      wrapper.addEventListener('touchend', (e) => {
-        if (isScrolling) return;
-        
-        const touchEndY = e.changedTouches[0].clientY;
-        const diff = touchStartY - touchEndY;
-        
-        if (Math.abs(diff) > 50) {
-          if (diff > 0 && currentIndex < sections.length - 1) {
-            scrollToSection(currentIndex + 1);
-          } else if (diff < 0 && currentIndex > 0) {
-            scrollToSection(currentIndex - 1);
-          }
-        }
-      }, { passive: true });
-      
-      // Keyboard navigation
-      document.addEventListener('keydown', (e) => {
-        if (isScrolling) return;
-        
-        switch(e.key) {
-          case 'ArrowDown':
-          case 'PageDown':
-            e.preventDefault();
-            if (currentIndex < sections.length - 1) {
-              scrollToSection(currentIndex + 1);
-            }
-            break;
-          case 'ArrowUp':
-          case 'PageUp':
-            e.preventDefault();
-            if (currentIndex > 0) {
-              scrollToSection(currentIndex - 1);
-            }
-            break;
-          case 'Home':
-            e.preventDefault();
-            scrollToSection(0);
-            break;
-          case 'End':
-            e.preventDefault();
-            scrollToSection(sections.length - 1);
-            break;
-        }
-      });
-      
-      // Update active dot on manual scroll (e.g., from clicking a link)
-      let scrollTimeout;
-      wrapper.addEventListener('scroll', () => {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-          if (!isScrolling) {
-            const scrollTop = wrapper.scrollTop;
-            const windowHeight = wrapper.clientHeight;
-            const newIndex = Math.round(scrollTop / windowHeight);
-            
-            if (newIndex !== currentIndex && newIndex >= 0 && newIndex < sections.length) {
-              currentIndex = newIndex;
-              navItems.forEach(item => item.classList.remove('active'));
-              navItems[currentIndex].classList.add('active');
-            }
-          }
-        }, 100);
-      }, { passive: true });
-      
-      // Initial active state
-      if (navItems.length > 0) {
-        navItems[0].classList.add('active');
-      }
+
+      var current = null;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var idx = Array.prototype.indexOf.call(sections, entry.target);
+          if (idx < 0 || idx === current) return;
+          current = idx;
+          items.forEach(function (it, i) { it.classList.toggle('active', i === idx); });
+        });
+      }, { root: wrapper, threshold: 0.55 });
+
+      sections.forEach(function (s) { io.observe(s); });
+      if (items.length) items[0].classList.add('active');
     })();
   </script>
 
   <script src="admin-data.js"></script>
   <script src="dynamic-content-loader.js"></script>
-  </body>
+</body>
 </html>
